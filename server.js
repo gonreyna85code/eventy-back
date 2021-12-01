@@ -45,9 +45,9 @@ require("./passportConfig")(passport);
 app.use('/', user)
 app.use('/', event)
 
+const PORT = process.env.PORT || 4000;
 
 
-
-app.listen(4000, () => {
+app.listen(PORT, () => {
   console.log("Server Has Started");
 });
