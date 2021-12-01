@@ -5,7 +5,7 @@ const express = require("express");
 //const passport = require("passport");
 //const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
-const session = require("express-session");
+//const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
 const user = require("./routes/user");
@@ -25,13 +25,7 @@ mongoose.connect(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cors(  ));
-app.use(
-  session({
-    secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+
 
 app.use(cookieParser("secretcode"));
 //app.use(passport.initialize());
