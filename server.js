@@ -24,9 +24,7 @@ mongoose.connect(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
-  cors({ 
-    credentials: true,
-  })
+  cors()
 );
 app.use(
   session({
