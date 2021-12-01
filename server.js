@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
@@ -23,9 +23,7 @@ mongoose.connect(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors()
-);
+
 app.use(
   session({
     secret: "secretcode",
