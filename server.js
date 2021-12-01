@@ -2,8 +2,8 @@ require('dotenv').config();
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
-const passport = require("passport");
-const passportLocal = require("passport-local").Strategy;
+//const passport = require("passport");
+//const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -34,9 +34,9 @@ app.use(
 );
 
 app.use(cookieParser("secretcode"));
-app.use(passport.initialize());
-app.use(passport.session());
-require("./passportConfig")(passport);
+//app.use(passport.initialize());
+//app.use(passport.session());
+//require("./passportConfig")(passport);
 
 
 app.use('/', user)
