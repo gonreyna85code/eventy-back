@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require("mongoose");
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
@@ -47,10 +47,8 @@ require("./passportConfig")(passport);
 
 app.use('/', user)
 app.use('/', event)
-app.use(
-  cors()
-);
-const PORT = process.env.PORT || 4000;
+
+const PORT = process.env.PORT || 8000;
 
 
 app.listen(PORT, () => {
