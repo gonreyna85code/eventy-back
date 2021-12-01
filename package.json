@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
@@ -20,9 +20,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "react-alice-carousel": "^2.5.1",
-    "yarn": "^1.22.17"
-  },
-  "devDependencies": {
+    "yarn": "^1.22.17",
     "nodemon": "^2.0.3"
   }
 }
