@@ -10,6 +10,7 @@ const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
+const MongoStore = require('connect-mongo')(session);
 
 mongoose.connect(
   "mongodb+srv://gonreyna85:gonreyna85@cluster0.bubyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -33,7 +34,7 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 app.use(
   session({
-    store,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
