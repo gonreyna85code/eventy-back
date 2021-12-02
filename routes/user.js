@@ -7,16 +7,14 @@ const Event = require("../models/event");
 const router = Router();
 
 router.post("/login", (req, res, next) => {
-  console.log('esto es el login')
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        req.session.save(function(err) {
-          res.send("Logged In");
-        })
+        res.send("Successfully Authenticated");
+        console.log(req.user);
       });
     }
   })(req, res, next);
@@ -46,7 +44,7 @@ router.get('/logout', function (req, res){
 });
 
 router.get("/user", async (req, res) => {
-  const near = await Event.find({ location: req.user?.profile.city });
+  const near = await Event.find({ location: req.user?.profile?.city });
   const follows = await Event.find({ category: req.user?.subscriptions });
   if (req.user) {
     User.findOne({ _id: req.user.id }, async (err, doc) => {
