@@ -11,7 +11,7 @@ const isAuthenticated = function (req, res, next) {
   res.sendStatus(401);
 }
 
-router.post("/event", function(req, res){
+router.post("/event",isAuthenticated, function(req, res){
   Event.findOne({ name: req.body.name }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("Event Already Exists");
@@ -33,7 +33,7 @@ router.post("/event", function(req, res){
 });
 
 
-router.get("/event/:name", async (req, res) => {
+router.get("/event/:name", isAuthenticated, async (req, res) => {
   const {name} = req.params;
   var response = await Event.find({ name: name });
   response.length > 0 ?
@@ -41,7 +41,7 @@ router.get("/event/:name", async (req, res) => {
   res.status(404).send('No hay eventos')
 });
 
-router.get("/eventsAll/:parametro", async (req,res)=> {
+router.get("/eventsAll/:parametro", isAuthenticated, async (req,res)=> {
   var parametro = req.params.parametro.toLowerCase(); 
   var nombre, lugar, info; 
   var response = await Event.find(); //Aqui se piden todos los datos de la base de datos
@@ -107,21 +107,21 @@ router.get("/events/filter/categoria-:categoria?/ciudad-:ciudad?/pago-:pago?",is
   else {res.json(tercerFiltro)}
 })
 
-router.get('/socialEvents', async (req,res)=>{
+router.get('/socialEvents', isAuthenticated, async (req,res)=>{
   var response = await Event.find({category: 'social'});
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay eventos')
 })
 
-router.get('/sportEvents', async (req,res)=>{
+router.get('/sportEvents', isAuthenticated, async (req,res)=>{
 var response = await Event.find({category: 'sports'});
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay eventos')
 })
 
-router.get('/allEvents', async(req,res)=>{
+router.get('/allEvents', isAuthenticated, async(req,res)=>{
   var response = await Event.find();
   response.length > 0 ?
   res.status(200).send(response) :
