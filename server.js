@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
 const express = require("express");
 //const cors = require("cors");
@@ -21,7 +22,7 @@ mongoose.connect(
   }
 );
 
-server.use((req, res, next) => {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
@@ -60,8 +61,8 @@ app.use(
 app.use("/user", user);
 app.use("/event", event);
 
-const PORT = process.env.PORT || 8000;
+
 
 app.listen(process.env.PORT, () => {
-  console.log("Server Has Started");
+  console.log("Server Has Started on port " + process.env.PORT );
 });
