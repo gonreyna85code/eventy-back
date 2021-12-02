@@ -30,13 +30,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser("secretcode"));
-//app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
 app.use(
   session({
-    //store: MongoStore.create({ mongoUrl: "mongodb+srv://gonreyna85:gonreyna85@cluster0.bubyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" }),   
+    store: MongoStore.create({ mongoUrl: "mongodb+srv://gonreyna85:gonreyna85@cluster0.bubyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" }),   
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
