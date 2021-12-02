@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
@@ -38,10 +38,10 @@ app.use(
   })
 );
 
-app.use(cors({
-  origin: true,          
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: true,          
+//   credentials: true,
+// }));
 
 app.use('/', user)
 app.use('/', event)
