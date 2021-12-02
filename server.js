@@ -39,7 +39,7 @@ app.use(
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
-    cookie: { domain: 'https://eventy-main.vercel.app' },
+    cookie: { domain: 'https://eventy-main-f73p4d16h-gonreyna85code.vercel.app' },
 
   })
 );
