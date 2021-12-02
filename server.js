@@ -46,9 +46,7 @@ app.use(
 );
 
 app.use(cors({
-  origin: "*",
-  credentials: true,
-   
+  credentials: true,   
 }));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
