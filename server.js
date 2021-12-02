@@ -33,6 +33,7 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 app.use(
   session({
+    store,
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
