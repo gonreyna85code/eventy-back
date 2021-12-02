@@ -1,1 +1,1 @@
-web: npm i mongodb
+web: npm start
