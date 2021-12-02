@@ -10,7 +10,6 @@ const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
 
-
 mongoose.connect(
   "mongodb+srv://gonreyna85:gonreyna85@cluster0.bubyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   {
@@ -21,10 +20,25 @@ mongoose.connect(
     console.log("Mongoose Is Connected");
   }
 );
+
+server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  if (req.method === "OPTIONS") {
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, DELETE"
+    );
+    return res.status(200).json({});
+  }
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
 
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
@@ -39,16 +53,14 @@ app.use(
 );
 
 // app.use(cors({
-//   origin: true,          
+//   origin: true,
 //   credentials: true,
 // }));
 
-app.use('/user', user)
-app.use('/event', event)
- 
+app.use("/user", user);
+app.use("/event", event);
 
 const PORT = process.env.PORT || 8000;
-
 
 app.listen(process.env.PORT, () => {
   console.log("Server Has Started");
