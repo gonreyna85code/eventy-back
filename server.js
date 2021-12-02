@@ -56,11 +56,7 @@ app.use(function(req, res, next) {
    }
   });
 
-app.use(cors({
-  origin: "https://eventy-main.vercel.app",
-  credentials: true,
-
-}))
+app.use(cors())
 
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
