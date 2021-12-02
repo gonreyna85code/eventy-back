@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
+const cors = require("cors");
 
 mongoose.connect(
   "mongodb+srv://gonreyna85:gonreyna85@cluster0.bubyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -21,21 +22,7 @@ mongoose.connect(
   }
 );
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://eventy-main.vercel.app"); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  if (req.method === "OPTIONS") {
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET, POST, OPTIONS, PUT, DELETE"
-    );
-    return res.status(200).json({});
-  }
-  next();
-});
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -53,7 +40,7 @@ app.use(
 );
 
 app.use(cors({
-  origin: true,
+  origin: "https://eventy-main.vercel.app",
   credentials: true,
 }));
 
