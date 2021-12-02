@@ -43,12 +43,13 @@ app.use(
 //   credentials: true,
 // }));
 
-app.use('/', user)
-app.use('/', event)
+app.use('/user', user)
+app.use('/event', event)
+ 
 
 const PORT = process.env.PORT || 8000;
 
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server Has Started");
 });
