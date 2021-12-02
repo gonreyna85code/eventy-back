@@ -55,7 +55,7 @@ app.use(
 
 app.use(cors({
   origin: "https://eventy-main.vercel.app",
-  credentials: true,
+  
 }));
 
 app.use("/", user);
