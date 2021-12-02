@@ -14,7 +14,7 @@ const cors = require("cors");
 
 
 mongoose.connect(
-  "mongodb+srv://gonreyna85:gonreyna85@cluster0.bubyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  process.env.MONGO,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -36,7 +36,7 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 app.use(
   session({
-    store: MongoStore.create({ mongoUrl: "mongodb+srv://gonreyna85:gonreyna85@cluster0.bubyh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" }),   
+    store: MongoStore.create({ mongoUrl: process.env.MONGO }),   
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
