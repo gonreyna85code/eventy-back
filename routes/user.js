@@ -44,6 +44,7 @@ router.get('/logout', function (req, res){
 });
 
 router.get("/user", async (req, res) => {
+  console.log('esto es el back-end')
   const near = await Event.find({ location: req.user?.profile?.city });
   const follows = await Event.find({ category: req.user?.subscriptions });
   if (req.user) {
