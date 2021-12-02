@@ -50,7 +50,10 @@ app.use(cors({
   credentials: true,
    
 }));
-
+app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+require("./passportConfig")(passport);
 
 app.use("/", user);
 app.use("/", event);
