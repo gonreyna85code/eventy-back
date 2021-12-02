@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoose = require("mongoose");
+const MongoStore = require('connect-mongo');
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
@@ -35,6 +36,7 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 app.use(
   session({
+    store: MongoStore.create(options),
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
