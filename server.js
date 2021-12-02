@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser("secretcode"));
+app.set('trust proxy', 1);
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
