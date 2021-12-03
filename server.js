@@ -37,18 +37,18 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      domain: "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/",
+      domain: "https://eventy-main-9w857qt5i-gonreyna85code.vercel.app",
     },
   })
 );
 
 app.use(
   cors({
-    origin: "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/",
+    origin: "https://eventy-main-9w857qt5i-gonreyna85code.vercel.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
-    //allowedHeaders: "Content-Type,Authorization",
+    allowedHeaders: "Content-Type,Authorization",
     credentials: true,
   })
 );
