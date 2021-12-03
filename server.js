@@ -39,7 +39,7 @@ app.use(
 
 app.use(
   session({
-    name: "SESS_NAME",
+    //name: "SESS_NAME",
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     secret: "secretcode",
     withCredentials: true,
@@ -48,9 +48,10 @@ app.use(
     cookie: {
       //domain: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
       //sameSite: 'none',
-      maxAge: 1000,
+      maxAge: 100000,
       secure: false,
-      httpOnly: false,
+      //httpOnly: false,
+      originalMaxAge: 100000,
     },
   })
 );   
