@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const MongoStore = require("connect-mongo");
 const express = require("express");
 const passport = require("passport");
@@ -12,15 +12,13 @@ const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
 
-app.name='API'
+app.name = "API";
 
 app.use(cors());
 app.use(
   cors({
     credentials: true,
-    preflightContinue: false,
-    methods: ['GET', 'POST', 'PUT', 'PATCH' , 'DELETE', 'OPTIONS'],
-    origin: 'https://eventy-main-jsgk72m78-gonreyna85code.vercel.app',
+    origin: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
   })
 );
 
@@ -33,22 +31,27 @@ mongoose.connect(
   () => {
     console.log("Mongoose Is Connected");
   }
-); 
+);
 
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, DELETE"
+    );
+    next();
   } else {
-    res.header('Access-Control-Allow-Origin', '*');
-  } 
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
+    res.header("Access-Control-Allow-Origin", "*");
+  }
 });
 
 app.use(
@@ -61,9 +64,9 @@ app.use(
       httpOnly: false,
       secure: true,
       sameSite: "none",
-    }
+    },
   })
-);   
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -72,13 +75,12 @@ require("./passportConfig")(passport);
 app.use("/", user);
 app.use("/", event);
 
-app.use((err, req, res, next) => { 
+app.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);
   res.status(status).send(message);
 });
-
 
 app.listen(process.env.PORT, () => {
   console.log("Server Has Started on port " + process.env.PORT);
