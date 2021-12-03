@@ -28,7 +28,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
-  cors()
+  cors({
+    origin: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
+    credentials: true,
+
+  })
 );
 
 
