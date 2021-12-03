@@ -29,19 +29,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "https://eventy-main-9w857qt5i-gonreyna85code.vercel.app",
-    //methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     //preflightContinue: false,
     //optionsSuccessStatus: 204,
-    //allowedHeaders: "Content-Type,Authorization",
+    allowedHeaders: "Content-Type,Authorization",
     credentials: true,
   })
 );
 
 
-//app.use(cookieParser("secretcode"));
-//app.use(passport.initialize());
-//app.use(passport.session());
-//require("./passportConfig")(passport);
+app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+require("./passportConfig")(passport);
 app.use(
   session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
