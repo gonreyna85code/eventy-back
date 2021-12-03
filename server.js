@@ -31,7 +31,7 @@ app.use(
   cors({
     origin: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
     credentials: true,
-
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
   })
 );
 
@@ -42,13 +42,15 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 app.use(
   session({
+    name: "SESS_NAME",
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
-      domain: "eventy-main-jsgk72m78-gonreyna85code.vercel.app",
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: false,
+      maxAge: 1000,
+      httpOnly: true,
     },
   })
 );   
