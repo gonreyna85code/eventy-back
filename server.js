@@ -36,7 +36,7 @@ app.use(
 );
 
 
-//app.use(cookieParser("secretcode"));
+app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
@@ -45,10 +45,11 @@ app.use(
     name: "SESS_NAME",
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     secret: "secretcode",
-    resave: false,
-    saveUninitialized: false,
+    withCredentials: true,
+    proxy: true,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
-      domain: "https://gonzalo-eventy3.herokuapp.com",
       sameSite: false,
       maxAge: 1000,
       secure: false,
