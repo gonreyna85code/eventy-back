@@ -37,14 +37,19 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      domain: "https://eventy-main-f73p4d16h-gonreyna85code.vercel.app",
+      domain: "https://eventy.vercel.app/",
     },
   })
 );
 
 app.use(
   cors({
-    origin: "https://eventy-main-f73p4d16h-gonreyna85code.vercel.app",
+    origin: [
+      "https://eventy.vercel.app/",
+      "https://eventy.vercel.app/user",
+      "https://eventy.vercel.app/login",
+      "https://eventy.vercel.app/event",
+    ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
