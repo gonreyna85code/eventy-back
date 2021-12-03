@@ -40,6 +40,7 @@ app.set('trust proxy', 1);
 app.use(
   session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
+    key : 'sid',
     secret: "secretcode",
     withCredentials: true,
     resave: true,
