@@ -1,6 +1,6 @@
-require('dotenv').config();
+require("dotenv").config();
 const mongoose = require("mongoose");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
@@ -11,7 +11,6 @@ const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
-
 
 mongoose.connect(
   process.env.MONGO,
@@ -24,8 +23,6 @@ mongoose.connect(
   }
 );
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -35,20 +32,25 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 app.use(
   session({
-    store: MongoStore.create({ mongoUrl: process.env.MONGO }),   
+    store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
-    cookie: { domain: 'https://eventy-main-f73p4d16h-gonreyna85code.vercel.app' },
-
+    cookie: {
+      domain: "https://eventy-main-f73p4d16h-gonreyna85code.vercel.app",
+    },
   })
 );
 
-
-  app.use(cors({
-    origin: 'https://eventy-main-f73p4d16h-gonreyna85code.vercel.app',
+app.use(
+  cors({
+    origin: "https://eventy-main-f73p4d16h-gonreyna85code.vercel.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
     credentials: true,
-  }))
+  })
+);
 
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
@@ -58,8 +60,6 @@ require("./passportConfig")(passport);
 app.use("/", user);
 app.use("/", event);
 
-
-
 app.listen(process.env.PORT, () => {
-  console.log("Server Has Started on port " + process.env.PORT );
+  console.log("Server Has Started on port " + process.env.PORT);
 });
