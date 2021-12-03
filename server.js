@@ -40,7 +40,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin','true', true); 
+  res.header('Access-Control-Allow-Origin', 'https://eventy-main-jsgk72m78-gonreyna85code.vercel.app'); 
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
