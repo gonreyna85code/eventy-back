@@ -37,7 +37,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      domain: "https://eventy-main.vercel.app",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })
 );
@@ -45,9 +45,9 @@ app.use(
 app.use(
   cors({
     origin: "https://eventy-main-9w857qt5i-gonreyna85code.vercel.app",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    //methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     //preflightContinue: false,
-    optionsSuccessStatus: 204,
+    //optionsSuccessStatus: 204,
     //allowedHeaders: "Content-Type,Authorization",
     credentials: true,
   })
