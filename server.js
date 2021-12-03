@@ -37,7 +37,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      domain: "https://eventy.vercel.app/",
+      domain: "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/",
     },
   })
 );
@@ -45,10 +45,10 @@ app.use(
 app.use(
   cors({
     origin: [
-      "https://eventy.vercel.app/",
-      "https://eventy.vercel.app/user",
-      "https://eventy.vercel.app/login",
-      "https://eventy.vercel.app/event",
+      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/",
+      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/user",
+      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/login",
+      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/event",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,OOPTIONS,DELETE",
     preflightContinue: false,
