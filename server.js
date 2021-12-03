@@ -23,10 +23,10 @@ mongoose.connect(
   }
 ); 
 
-app.enable('trust proxy')
+//app.enable('trust proxy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cookieParser("secretcode"));
 app.use(
   cors({
     origin: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
@@ -36,10 +36,7 @@ app.use(
 );
 
 
-app.use(cookieParser("secretcode"));
-app.use(passport.initialize());
-app.use(passport.session());
-require("./passportConfig")(passport);
+
 app.use(
   session({
     name: "SESS_NAME",
@@ -49,14 +46,18 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      //domain: "gonzalo-eventy3.herokuapp.com",
+      domain: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
       sameSite: 'none',
       maxAge: 1000,
-      secure: true,
+      secure: false,
       httpOnly: false,
     },
   })
 );   
+
+app.use(passport.initialize());
+app.use(passport.session());
+require("./passportConfig")(passport);
 
 app.use("/", user);
 app.use("/", event);
