@@ -47,7 +47,13 @@ app.use(
     secret: "secretcode",
     resave: false,
     saveUninitialized: false,
-    
+    cookie: {
+      domain: "https://gonzalo-eventy3.herokuapp.com",
+      sameSite: false,
+      maxAge: 1000,
+      secure: false,
+      httpOnly: false,
+    },
   })
 );   
 
