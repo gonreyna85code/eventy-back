@@ -50,7 +50,7 @@ app.use(
       "https://eventy.vercel.app/login",
       "https://eventy.vercel.app/event",
     ],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: "GET,HEAD,PUT,PATCH,POST,OOPTIONS,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
     allowedHeaders: 'Content-Type,Authorization',
