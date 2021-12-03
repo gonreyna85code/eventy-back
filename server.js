@@ -53,7 +53,7 @@ app.use(
       sameSite: 'none',
       maxAge: 1000,
       secure: false,
-      httpOnly: true,
+      httpOnly: false,
     },
   })
 );   
