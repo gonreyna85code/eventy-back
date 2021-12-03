@@ -50,6 +50,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
+      domain: "eventy-main-jsgk72m78-gonreyna85code.vercel.app",
       sameSite: false,
       maxAge: 1000,
       secure: false,
