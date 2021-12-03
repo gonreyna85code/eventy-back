@@ -22,7 +22,7 @@ mongoose.connect(
     console.log("Mongoose Is Connected");
   }
 ); 
-
+app.set('trust proxy', 1);
 //app.enable('trust proxy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,7 +36,7 @@ app.use(
 );
 
 
-app.set('trust proxy', 1);
+
 app.use(
   session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
