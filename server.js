@@ -47,12 +47,7 @@ app.use(
     secret: "secretcode",
     resave: false,
     saveUninitialized: false,
-    cookie: {
-      sameSite: false,
-      maxAge: 1000,
-      secure: false,
-      httpOnly: false,
-    },
+    
   })
 );   
 
