@@ -59,7 +59,6 @@ app.use(
   })
 );   
 
-
 app.use("/", user);
 app.use("/", event);
 
