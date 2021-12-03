@@ -44,16 +44,11 @@ app.use(
 
 app.use(
   cors({
-    origin: [
-      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/",
-      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/user",
-      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/login",
-      "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/event",
-    ],
+    origin: "https://eventy-main-lljbejb4e-gonreyna85code.vercel.app/",
     methods: "GET,HEAD,PUT,PATCH,POST,OOPTIONS,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
-    allowedHeaders: 'Content-Type,Authorization',
+    allowedHeaders: "Content-Type,Authorization",
     credentials: true,
   })
 );
