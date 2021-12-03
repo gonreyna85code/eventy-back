@@ -30,6 +30,7 @@ app.use(cookieParser("secretcode"));
 app.use(
   cors({
     origin: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
+    credentials: true,
     
   })
 );
