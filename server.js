@@ -52,7 +52,7 @@ app.use(
       domain: "gonzalo-eventy3.herokuapp.com",
       sameSite: 'none',
       maxAge: 1000,
-      secure: false,
+      secure: true,
       httpOnly: false,
     },
   })
