@@ -49,7 +49,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      domain: "gonzalo-eventy3.herokuapp.com",
+      //domain: "gonzalo-eventy3.herokuapp.com",
       sameSite: 'none',
       maxAge: 1000,
       secure: true,
