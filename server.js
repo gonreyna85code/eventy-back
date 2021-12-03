@@ -30,8 +30,7 @@ app.use(cookieParser("secretcode"));
 app.use(
   cors({
     origin: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
-    credentials: true,
-    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    
   })
 );
 
@@ -40,20 +39,10 @@ app.set('trust proxy', 1);
 app.use(
   session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
-    key : 'sid',
     secret: "secretcode",
-    withCredentials: true,
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      //domain: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
-      sameSite: true,
-      maxAge: 100000,
-      secure: false,
-      originalMaxAge: 100000,
-      httpOnly: true,
-    },
-    path: 'sessions',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24, httpOnly: false, secure: false },
   })
 );   
 
