@@ -21,7 +21,8 @@ mongoose.connect(
   () => {
     console.log("Mongoose Is Connected");
   }
-);
+); 
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
