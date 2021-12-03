@@ -4,7 +4,7 @@ const MongoStore = require("connect-mongo");
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
-//const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
@@ -26,7 +26,7 @@ mongoose.connect(
 //app.enable('trust proxy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cookieParser("secretcode"));
+app.use(cookieParser("secretcode"));
 app.use(
   cors({
     origin: "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app",
@@ -52,6 +52,7 @@ app.use(
       secure: false,
       originalMaxAge: 100000,
     },
+    path: 'sessions',
   })
 );   
 
