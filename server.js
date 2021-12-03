@@ -27,14 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
-  cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    //preflightContinue: false,
-    //optionsSuccessStatus: 204,
-    allowedHeaders: "Content-Type,Authorization",
-    credentials: true,
-  })
+  cors()
 );
 
 
