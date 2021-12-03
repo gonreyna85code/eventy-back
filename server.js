@@ -46,12 +46,11 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     secret: "secretcode",
     withCredentials: true,
-    proxy: true,
     resave: true,
     saveUninitialized: true,
     cookie: {
       domain: "gonzalo-eventy3.herokuapp.com",
-      sameSite: false,
+      sameSite: 'none',
       maxAge: 1000,
       secure: false,
       httpOnly: true,
