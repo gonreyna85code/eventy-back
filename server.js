@@ -50,6 +50,7 @@ app.use((req, res, next) => {
 app.use(
   session({
     secret: "secretcode",
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
     resave: true,
     saveUninitialized: true,
     cookie: {
