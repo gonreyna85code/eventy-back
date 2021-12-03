@@ -17,9 +17,10 @@ app.name='API'
 app.use(cors());
 app.use(
   cors({
-    origin: true,
     credentials: true,
-
+    preflightContinue: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH' , 'DELETE', 'OPTIONS'],
+    origin: true,
   })
 );
 
