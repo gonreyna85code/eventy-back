@@ -23,7 +23,7 @@ mongoose.connect(
   }
 ); 
 
-
+app.enable('trust proxy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
