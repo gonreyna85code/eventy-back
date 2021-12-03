@@ -50,7 +50,7 @@ app.use((req, res, next) => {
     );
     next();
   } else {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "https://eventy-main-jsgk72m78-gonreyna85code.vercel.app");
   }
 });
 
