@@ -45,8 +45,6 @@ app.use(
      
     store: MongoStore.create({
       mongoUrl: process.env.MONGO,
-      client: mongoose.connection,
-      collectionName: "sessions",
       ttl: 14 * 24 * 60 * 60 // save session for 14 days
   }),
     resave: false,
