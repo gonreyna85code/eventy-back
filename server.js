@@ -10,8 +10,9 @@ const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
-const MongoStore = require("connect-mongo")(express);
+const MongoStore = require("connect-mongo")(session);
 app.name='API'
+
 
 app.use(
   cors({
@@ -43,7 +44,6 @@ app.use(cookieParser());
 app.use(
   session({    
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
-
     resave: false,
     saveUninitialized: true,
     secret: 'my-secret',
