@@ -10,7 +10,7 @@ const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
-const MongoStore = require("connect-mongo")(session);
+const MongoStore = require("connect-mongo");
 app.name='API'
 
 
