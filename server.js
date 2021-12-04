@@ -14,7 +14,12 @@ const MongoStore = require("connect-mongo");
 app.name = "API";
 
 
-//app.use(cors());
+app.use(cors({
+	origin: "https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app",
+	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+	preflightContinue: false,
+	optionsSuccessStatus: 204
+}));
 
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
