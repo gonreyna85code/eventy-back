@@ -40,13 +40,14 @@ app.use(cookieParser());
         
 app.set("trust proxy", 1);
 
-const session = new MongoStore(session);
 app.use(
   session({   
      
-    store: session.create({
+    store: MongoStore.create({
       mongoUrl: process.env.MONGO,
-      mongooseConnection: mongoose.connection,
+      //client: mongoose.connection,
+      collectionName: "sessions",
+      client: Connection.prototype.getClient(),
       ttl: 14 * 24 * 60 * 60 // save session for 14 days
   }),
     resave: false,
