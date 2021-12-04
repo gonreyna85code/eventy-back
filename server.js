@@ -20,7 +20,7 @@ app.use(
     credentials: true,
     preflightContinue: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH' , 'DELETE', 'OPTIONS'],
-    origin: true,
+    origin: 'https://eventy-main-jsgk72m78-gonreyna85code.vercel.app',
   })
 );
 
