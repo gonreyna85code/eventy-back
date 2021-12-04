@@ -13,13 +13,7 @@ const cors = require("cors");
 const MongoStore = require("connect-mongo");
 app.name = "API";
 
-app.use(
-  cors({
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    origin: "https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app",
-  })
-);
+
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app'); // update to match the domain you will make the request from
