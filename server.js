@@ -35,27 +35,22 @@ mongoose.connect(
 
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
-app.use(cookieParser("secretcode"));
+app.use(cookieParser());
 
         
 
 
 app.use(
-  session()
-);   
-
-app.use(passport.initialize());
-app.use(passport.session({
-    
+  session({    
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      httpOnly: false,
-      secure: true,
-      sameSite: "none",
-    }
-  }));
+    secret: 'my-secret'
+  })
+);   
+
+app.use(passport.initialize());
+app.use(passport.session());
 require("./passportConfig")(passport);
 
 app.use("/", user);
