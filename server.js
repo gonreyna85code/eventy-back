@@ -61,12 +61,12 @@ app.use(
     store: MongoStore.create({
       mongoUrl: process.env.MONGO,
       ttl: 14 * 24 * 60 * 60, // save session for 14 days
+      
     }),
     resave: false,
     saveUninitialized: true,
     secret: "secretcode",
     cookie: {
-      secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })
