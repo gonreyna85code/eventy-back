@@ -21,21 +21,21 @@ app.use(cors({
 	optionsSuccessStatus: 204
 }));
 
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    console.log('!OPTIONS');
-    var headers = {};
-    headers["Access-Control-Allow-Origin"] = "https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app";
-    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
-    headers["Access-Control-Allow-Credentials"] = true;
-    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
-    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
-    res.writeHead(200, headers);
-    res.end();
-  } else {
-    next();
-  }
-});
+// app.use((req, res, next) => {
+//   if (req.method === 'OPTIONS') {
+//     console.log('!OPTIONS');
+//     var headers = {};
+//     headers["Access-Control-Allow-Origin"] = "https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app";
+//     headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+//     headers["Access-Control-Allow-Credentials"] = true;
+//     headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+//     headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+//     res.writeHead(200, headers);
+//     res.end();
+//   } else {
+//     next();
+//   }
+// });
   
 
 mongoose.connect(
