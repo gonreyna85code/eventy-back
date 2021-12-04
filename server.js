@@ -18,7 +18,7 @@ app.use(
   cors({
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH' , 'DELETE', 'OPTIONS'],
-    origin: 'https://eventy-main-8zy1dekj7-gonreyna85code.vercel.app',
+    origin: 'https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app',
   })
 );
 
