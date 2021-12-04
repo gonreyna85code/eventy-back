@@ -18,7 +18,7 @@ app.use(
   cors({
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH' , 'DELETE', 'OPTIONS'],
-    origin: 'https://eventy-main-261tmnmjo-gonreyna85code.vercel.app',
+    origin: 'https://eventy-main-8zy1dekj7-gonreyna85code.vercel.app/',
   })
 );
 
@@ -59,7 +59,7 @@ app.use(
   })
 );   
 app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://eventy-main-261tmnmjo-gonreyna85code.vercel.app');
+  res.header('Access-Control-Allow-Origin', 'https://eventy-main-8zy1dekj7-gonreyna85code.vercel.app/');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
 
