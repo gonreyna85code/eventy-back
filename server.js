@@ -38,12 +38,17 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 
         
-
+app.set("trust proxy", 1);
 
 
 app.use(
-  session({    
-    store: MongoStore.create({ mongoUrl: process.env.MONGO }),
+  session({   
+     
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+      mongooseConnection: mongoose.connection,
+      ttl: 14 * 24 * 60 * 60 // save session for 14 days
+  }),
     resave: false,
     saveUninitialized: true,
     secret: 'my-secret',
