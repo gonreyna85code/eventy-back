@@ -14,7 +14,6 @@ router.post("/login", (req, res, next) => {
       req.logIn(user, (err) => {
         if (err) throw err;
         res.send("Successfully Authenticated");
-        console.log(req.user);
       });
     }
   })(req, res, next);
@@ -44,7 +43,6 @@ router.get('/logout', function (req, res){
 });
 
 router.get("/user", async (req, res) => {
-  console.log('esto es el back-end')
   const near = await Event.find({ location: req.user?.profile?.city });
   const follows = await Event.find({ category: req.user?.subscriptions });
   if (req.user) {
@@ -52,6 +50,7 @@ router.get("/user", async (req, res) => {
       if (err) throw err;
       if (!doc) res.send("User Not Found");
       if (doc) {
+        console.log(doc);
         doc.near = near;
         doc.follows = follows;
         doc.save();
