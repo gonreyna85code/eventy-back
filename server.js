@@ -29,6 +29,7 @@ app.use("*", function (req, res, next) {
   );
   res.header("Access-Control-Allow-Credentials", "true");
   if (req.method == "OPTIONS") {
+    console.log('Hola');
     res.send(200);
   } else {
     next();
