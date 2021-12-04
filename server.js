@@ -67,8 +67,7 @@ app.use(
     saveUninitialized: true,
     secret: "secretcode",
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,    
       secure: false,
     },
   })
