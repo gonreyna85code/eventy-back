@@ -41,8 +41,12 @@ app.use(cookieParser("secretcode"));
 
 
 app.use(
-  session({
-    secret: "secretcode",
+  session()
+);   
+
+app.use(passport.initialize());
+app.use(passport.session({
+    
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     resave: false,
     saveUninitialized: true,
@@ -51,11 +55,7 @@ app.use(
       secure: true,
       sameSite: "none",
     }
-  })
-);   
-
-app.use(passport.initialize());
-app.use(passport.session());
+  }));
 require("./passportConfig")(passport);
 
 app.use("/", user);
