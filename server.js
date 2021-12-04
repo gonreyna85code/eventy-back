@@ -17,16 +17,19 @@ app.name = "API";
 app.use(cors());
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app'); // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  if (req.method == "OPTIONS") {
-    
-    res.send(200);
+  if (req.method === 'OPTIONS') {
+    console.log('!OPTIONS');
+    var headers = {};
+    headers["Access-Control-Allow-Origin"] = "https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app";
+    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+    headers["Access-Control-Allow-Credentials"] = true;
+    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+    res.writeHead(200, headers);
+    res.end();
   } else {
     next();
-  }  
+  }
 });
   
 
