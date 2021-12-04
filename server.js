@@ -45,9 +45,9 @@ app.use(
     secret: "secretcode",
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "none",
     }
