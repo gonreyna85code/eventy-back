@@ -11,6 +11,7 @@ const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
+FileStore = require('session-file-store')(session);
 app.name='API'
 
 
@@ -43,19 +44,11 @@ app.set("trust proxy", 1);
 app.use(
   session({   
      
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO,
-      //client: mongoose.connection,
-      collectionName: "sessions",
-      client: mongoose.connection.getClient(),
-      ttl: 14 * 24 * 60 * 60 // save session for 14 days
-  }),
+    store: new FileStore,
     resave: false,
     saveUninitialized: true,
     secret: 'my-secret',
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-    },
+    
   })
 );   
 app.all('*', function(req, res, next) {
