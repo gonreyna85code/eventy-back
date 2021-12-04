@@ -16,6 +16,7 @@ app.name = "API";
 
 app.use(cors({
 	origin: "https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app",
+  credentials: true,
 	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 	preflightContinue: true,
 	optionsSuccessStatus: 204
