@@ -1,7 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
-const MongoStore = require("connect-mongo");
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
@@ -11,7 +10,7 @@ const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
-
+const MongoStore = require("connect-mongo")(express);
 app.name='API'
 
 app.use(
@@ -43,7 +42,8 @@ app.use(cookieParser());
 
 app.use(
   session({    
-    //store: MongoStore.create({ mongoUrl: process.env.MONGO }),
+    store: MongoStore.create({ mongoUrl: process.env.MONGO }),
+
     resave: false,
     saveUninitialized: true,
     secret: 'my-secret',
