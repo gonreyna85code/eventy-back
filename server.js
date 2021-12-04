@@ -14,6 +14,7 @@ const MongoStore = require("connect-mongo");
 app.name = "API";
 
 
+app.use(cors());
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app'); // update to match the domain you will make the request from
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   if (req.method == "OPTIONS") {
-    console.log(req);
+    
     res.send(200);
   } else {
     next();
