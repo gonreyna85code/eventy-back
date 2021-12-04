@@ -41,7 +41,11 @@ app.use(cookieParser());
 
 
 app.use(
-  session({    
+  session()
+);   
+
+app.use(passport.initialize());
+app.use(passport.session({    
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     resave: false,
     saveUninitialized: true,
@@ -51,11 +55,7 @@ app.use(
       httpOnly: true,
       secure: false,
     },
-  })
-);   
-
-app.use(passport.initialize());
-app.use(passport.session());
+  }));
 require("./passportConfig")(passport);
 
 app.use("/", user);
