@@ -14,7 +14,7 @@ const MongoStore = require("connect-mongo");
 app.name = "API";
 
 
-app.use(cors());
+//app.use(cors());
 
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
