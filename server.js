@@ -14,11 +14,9 @@ const cors = require("cors");
 
 app.name='API'
 
-app.use(cors());
 app.use(
   cors({
     credentials: true,
-    preflightContinue: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH' , 'DELETE', 'OPTIONS'],
     origin: 'https://eventy-main-jsgk72m78-gonreyna85code.vercel.app',
   })
@@ -39,6 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 
+   
 
 
 app.use(
