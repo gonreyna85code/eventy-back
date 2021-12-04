@@ -47,7 +47,7 @@ app.use(
       mongoUrl: process.env.MONGO,
       //client: mongoose.connection,
       collectionName: "sessions",
-      client: mongoose.getClient(),
+      client: mongoose.connection.getClient(),
       ttl: 14 * 24 * 60 * 60 // save session for 14 days
   }),
     resave: false,
