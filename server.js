@@ -41,15 +41,14 @@ app.use(cookieParser());
 app.set("trust proxy", 1);
 
 app.use(
-  session({   
-     
+  session({        
     store: MongoStore.create({
       mongoUrl: process.env.MONGO,
       ttl: 14 * 24 * 60 * 60 // save session for 14 days
   }),
     resave: false,
     saveUninitialized: true,
-    secret: 'my-secret',
+    secret: 'secretcode',
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
