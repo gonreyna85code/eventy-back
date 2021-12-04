@@ -22,6 +22,14 @@ app.use(
   })
 );
 
+app.use('*', function(req, res, next) {
+  if (req.method == 'OPTIONS') {
+      res.send(200);
+  } else {
+      next();
+  }
+});
+
 mongoose.connect(
   process.env.MONGO,
   {
@@ -54,13 +62,7 @@ app.use(
     },
   })
 );   
-app.all('*', function(req, res, next) {
-  if (req.method == 'OPTIONS') {
-      res.send(200);
-  } else {
-      next();
-  }
-});
+
 
 app.use(passport.initialize());
 app.use(passport.session());
