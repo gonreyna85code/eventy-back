@@ -7,14 +7,13 @@ const Event = require("../models/event");
 const router = Router();
 
 router.post("/login", (req, res, next) => {
+  console.log('hola')
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.cookie("user", req.user._id);
-        console.log(req.user)
         res.send("Successfully Authenticated");
       });
     }
@@ -22,13 +21,11 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/register", (req, res) => {
-
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exists");
     if (!doc) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
       const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
@@ -55,7 +52,6 @@ router.get("/user", async (req, res) => {
         doc.near = near;
         doc.follows = follows;
         doc.save();
-        res.cookie("user", doc);
         res.send(doc);
       }
     }).populate('follows').populate('events');
