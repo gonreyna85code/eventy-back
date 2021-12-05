@@ -12,7 +12,7 @@ const event = require("./routes/event");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const morgan = require('morgan');
-const User = require("../models/user");
+const User = require("./models/user");
 
 passport.use(
   new localStrategy((username, password, done) => {
