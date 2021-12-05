@@ -80,10 +80,9 @@ app.use(
     saveUninitialized: true,
     secret: "secretcode",
     cookie: {
-      maxAge: 14 * 24 * 60 * 60 * 1000,
-      httpOnly: false,
+      
       secure: true,
-      sameSite: "none",
+      
     },
   })
 );
