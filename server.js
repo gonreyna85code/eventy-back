@@ -15,14 +15,14 @@ const MongoStore = require("connect-mongo");
 app.name = "API";
 require("./passportConfig")(passport);
 
-// app.use(
-//   cors({
-//     origin: true, //se habilitan las credenciales de cors para los pedidos que vengan del front
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: true, //se habilitan las credenciales de cors para los pedidos que vengan del front
+    credentials: true,
+  })
+);
 
-//app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
 app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
@@ -64,10 +64,10 @@ mongoose.connect(
   }
 );
 
-//app.use(express.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(cookieParser());
+app.use(cookieParser("secretcode"));
 app.use(morgan("dev"));
 
 app.use(
@@ -77,15 +77,18 @@ app.use(
       ttl: 14 * 24 * 60 * 60,
     }),
     name: "admin_session",
+    //expires: new Date(Date.now() + 900000),
     resave: true,
-    //rolling: false,
+    rolling: false,
     saveUninitialized: false,
-    //unset: "destroy",
+    unset: "destroy",
     secret: "secretcode",
-    cookie: {
-      
+    cookie: {     
+      domain: "eventy-main-k6m7r9hk3-gonreyna85code.vercel.app",
+      expires: new Date(Date.now() + 3600000), 
       secure: true,
-      
+      httpOnly: false,
+      maxAge: 14 * 24 * 60 * 60 * 1000,      
     },
     
   })
