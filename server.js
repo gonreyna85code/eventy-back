@@ -17,10 +17,8 @@ require("./passportConfig")(passport);
 
 
 app.use(cors({
-  preflightContinue: true,
+  preflightContinue: false,
   credentials: true,
-  
-
 }));
 
 
