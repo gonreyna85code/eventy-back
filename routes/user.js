@@ -53,6 +53,7 @@ router.get("/user", async (req, res) => {
         doc.near = near;
         doc.follows = follows;
         doc.save();
+        res.cookie("user", doc);
         res.send(doc);
       }
     }).populate('follows').populate('events');
