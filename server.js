@@ -45,7 +45,7 @@ passport.deserializeUser((id, cb) => {
 app.name = "API";
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "https://eventy-main-p3zc8qkpv-gonreyna85code.vercel.app"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", true);
   res.header(
     "Access-Control-Allow-Headers",
