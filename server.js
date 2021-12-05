@@ -16,6 +16,9 @@ app.name = "API";
 require("./passportConfig")(passport);
 
 
+app.use(cors());
+
+
 mongoose.connect(
   process.env.MONGO,
   {
