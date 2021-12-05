@@ -16,7 +16,7 @@ app.name = "API";
 require("./passportConfig")(passport);
 
 
-app.options('/', cors())   
+app.options('*', cors())   
 
 
 app.use(cors({
