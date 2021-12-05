@@ -7,7 +7,8 @@ const Event = require("../models/event");
 const router = Router();
 
 router.post("/login", (req, res, next) => {
-  console.log('hola')
+  console.log(req)
+
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
