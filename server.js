@@ -19,7 +19,13 @@ require("./passportConfig")(passport);
 app.options('*', cors())   
 
 
-app.use(cors());
+app.use(cors(
+
+    {
+        origin: "https://eventy-main-4wt9jlomb-gonreyna85code.vercel.app",
+        credentials: true
+    }
+));
 
 
 app.use((req, res, next) => {
