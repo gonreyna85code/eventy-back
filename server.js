@@ -17,42 +17,41 @@ require("./passportConfig")(passport);
 
 app.use(
   cors({
-    origin: true,             //se habilitan las credenciales de cors para los pedidos que vengan del front
+    origin: true, //se habilitan las credenciales de cors para los pedidos que vengan del front
     credentials: true,
   })
-)
+);
 
 app.set("trust proxy", 1);
 
 app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.header("Access-Control-Allow-Origin", 'https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+  if (req.method === "OPTIONS") {
+    res.header(
+      "Access-Control-Allow-Origin",
+      "https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app"
+    );
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie, Cookie"
     );
     return res.status(200).json({});
-}
+  }
 
-  res.header("Access-Control-Allow-Origin", 'https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, x-www-form-urlencoded, Accept, application/json, Authorization, application/json"
   );
 
-  
   next();
 });
-
-
-
-
-
-
 
 mongoose.connect(
   process.env.MONGO,
@@ -65,34 +64,35 @@ mongoose.connect(
   }
 );
 
-app.use(express.json())
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 //app.use(cookieParser());
 app.use(morgan("dev"));
 
-
 app.use(
   session({
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO,
-      ttl: 14 * 24 * 60 * 60,
-     }),
+    name: "admin_session",
     resave: true,
-    saveUninitialized: true,
+    rolling: false,
+    saveUninitialized: false,
+    unset: "destroy",
     secret: "secretcode",
     cookie: {
       sameSite: "none",
-      secure: true,      
-      httpOnly: true, 
-      maxAge: 8600000
+      secure: true,
+      httpOnly: true,
+      maxAge: 8600000,
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+      ttl: 14 * 24 * 60 * 60,
+    }),
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use("/", user);
 app.use("/", event);
