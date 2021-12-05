@@ -87,7 +87,7 @@ app.use(
       domain: "eventy-main-k6m7r9hk3-gonreyna85code.vercel.app",
       expires: new Date(Date.now() + 3600000), 
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'none',
       maxAge: 14 * 24 * 60 * 60 * 1000,      
     },
