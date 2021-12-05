@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const passport = require("passport");
-const passportLocal = require("passport-local").Strategy;
+const localStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
@@ -11,34 +11,49 @@ const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
+const morgan = require('morgan');
+
+passport.use(
+  new localStrategy((username, password, done) => {
+    console.log("username: ", username);
+    User.findOne({ username: username }, (err, user) => {
+      if (err) throw err;
+      if (!user) return done(null, false);
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) throw err;
+        if (result === true) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      });
+    });
+  })
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, cb) => {
+  console.log("deserializeUser: ", id);
+  return User.findOne({ _id: id }, (err, user) => {
+    return cb(err, user);
+  });
+});
+
 app.name = "API";
 
-
-app.use(cors({
-	origin: "https://eventy-main-6bcvf4ivu-gonreyna85code.vercel.app",
-  credentials: true,
-	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-	preflightContinue: true,
-	optionsSuccessStatus: 204
-}));
-
 app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Headers', 'Set-Cookie')
-    console.log('!OPTIONS');
-    var headers = {};
-    headers["Access-Control-Allow-Origin"] = "https://eventy-main-6bcvf4ivu-gonreyna85code.vercel.app";
-    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
-    headers["Access-Control-Allow-Credentials"] = true;
-    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
-    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
-    res.writeHead(200, headers);
-    res.end();
-  } else {
-    next();
-  }
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
 });
-  
 
 mongoose.connect(
   process.env.MONGO,
@@ -53,22 +68,20 @@ mongoose.connect(
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(cookieParser("secretcode"));
-
-app.set("trust proxy", 1);
+app.use(cookieParser());
+app.use(morgan("dev"));
 
 app.use(
   session({
     store: MongoStore.create({
       mongoUrl: process.env.MONGO,
       ttl: 14 * 24 * 60 * 60, // save session for 14 days
-      
     }),
     resave: false,
     saveUninitialized: true,
     secret: "secretcode",
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7,    
+      maxAge: 1000 * 60 * 60 * 24 * 7,
       secure: true,
     },
   })
@@ -76,7 +89,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-require("./passportConfig")(passport);
 
 app.use("/", user);
 app.use("/", event);
