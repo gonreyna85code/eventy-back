@@ -24,7 +24,11 @@ app.use(cors({
 app.use((req, res, next) => {
   if(req.method == "OPTIONS") {
     res.header("Access-Control-Allow-Origin", true);
-    res.send(200);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", true);
+    
+    res.sendStatus(200);
   } else {
     next();
   }
