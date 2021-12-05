@@ -67,7 +67,7 @@ mongoose.connect(
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(cookieParser("secretcode"));
+//app.use(cookieParser("secretcode"));
 app.use(morgan("dev"));
 
 app.use(
@@ -77,16 +77,16 @@ app.use(
       ttl: 14 * 24 * 60 * 60,
     }),
     name: "admin_session",
-    //expires: new Date(Date.now() + 900000),
+    expires: new Date(Date.now() + 900000),
     resave: true,
-    rolling: false,
+    //rolling: false,
     saveUninitialized: false,
-    unset: "destroy",
+    //unset: "destroy",
     secret: "secretcode",
     cookie: {     
       domain: "eventy-main-k6m7r9hk3-gonreyna85code.vercel.app",
       expires: new Date(Date.now() + 3600000), 
-      secure: true,
+      //secure: true,
       httpOnly: false,
       sameSite: 'none',
       maxAge: 14 * 24 * 60 * 60 * 1000,      
