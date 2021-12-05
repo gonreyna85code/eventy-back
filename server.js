@@ -16,7 +16,11 @@ app.name = "API";
 require("./passportConfig")(passport);
 
 
-app.use(cors());
+app.use(cors({
+  
+  credentials: true
+
+}));
 
 
 mongoose.connect(
