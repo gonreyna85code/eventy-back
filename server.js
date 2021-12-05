@@ -31,7 +31,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization, application/json"
+    "Origin, X-Requested-With, Content-Type, x-www-form-urlencoded, Accept, application/json, Authorization, application/json"
   );
   
   next();
