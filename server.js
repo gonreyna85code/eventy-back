@@ -52,7 +52,7 @@ mongoose.connect(
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(cookieParser());
+app.use(cookieParser("secretcode"));
 
 app.set("trust proxy", 1);
 
