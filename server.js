@@ -22,6 +22,8 @@ app.use(
   })
 )
 
+app.set("trust proxy", 1);
+
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.header("Access-Control-Allow-Origin", 'https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app');
@@ -29,7 +31,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
     res.header(
       "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie, Cookie"
     );
     return res.status(200).json({});
 }
@@ -72,17 +74,18 @@ app.use(morgan("dev"));
 
 app.use(
   session({
-    // store: MongoStore.create({
-    //   mongoUrl: process.env.MONGO,
-    //   ttl: 14 * 24 * 60 * 60,
-    // }),
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+      ttl: 14 * 24 * 60 * 60,
+     }),
     resave: true,
     saveUninitialized: true,
     secret: "secretcode",
     cookie: {
-      origin: true,
-      secure: true,
-      
+      sameSite: "none",
+      secure: true,      
+      httpOnly: true, 
+      maxAge: 8600000
     },
   })
 );
