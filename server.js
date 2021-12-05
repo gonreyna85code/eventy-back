@@ -19,7 +19,7 @@ require("./passportConfig")(passport);
 
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
-    res.header("Access-Control-Allow-Origin", 'https://eventy-main-4wt9jlomb-gonreyna85code.vercel.app');
+    res.header("Access-Control-Allow-Origin", 'https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app');
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
     res.header(
       "Access-Control-Allow-Headers",
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
     return res.status(200).json({});
 }
 
-  res.header("Access-Control-Allow-Origin", 'https://eventy-main-4wt9jlomb-gonreyna85code.vercel.app');
+  res.header("Access-Control-Allow-Origin", 'https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app');
   res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
   res.header(
     "Access-Control-Allow-Headers",
