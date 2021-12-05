@@ -8,7 +8,7 @@ const router = Router();
 
 router.post("/login", (req, res, next) => {
   console.log('hola')
-  console.log(req.body);
+  console.log(req);
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
@@ -21,8 +21,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.post("/register", (req, res) => {
-  
+router.post("/register", (req, res) => {  
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exists");
