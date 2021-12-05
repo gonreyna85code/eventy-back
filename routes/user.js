@@ -13,8 +13,8 @@ router.post("/login", (req, res, next) => {
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.cookie("user", user._id);
-        console.log(user)
+        res.cookie("user", req.user._id);
+        console.log(req.user)
         res.send("Successfully Authenticated");
       });
     }
