@@ -12,18 +12,17 @@ const event = require("./routes/event");
 const cors = require("cors");
 const morgan = require("morgan");
 const MongoStore = require("connect-mongo");
-const MongoDBStore = require('connect-mongodb-session')(session);
 app.name = "API";
 require("./passportConfig")(passport);
 
-app.use(
-  cors({
-    origin: true, //se habilitan las credenciales de cors para los pedidos que vengan del front
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: true, //se habilitan las credenciales de cors para los pedidos que vengan del front
+//     credentials: true,
+//   })
+// );
 
-app.set("trust proxy", 1);
+//app.set("trust proxy", 1);
 
 app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
@@ -65,30 +64,30 @@ mongoose.connect(
   }
 );
 
-app.use(express.json());
+//app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
-//app.use(cookieParser());
+app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use(
   session({
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+      ttl: 14 * 24 * 60 * 60,
+    }),
     name: "admin_session",
     resave: true,
-    rolling: false,
+    //rolling: false,
     saveUninitialized: false,
-    unset: "destroy",
+    //unset: "destroy",
     secret: "secretcode",
     cookie: {
-      sameSite: "none",
-      secure: true,
-      httpOnly: true,
-      maxAge: 8600000,
+      
+      secure: false,
+      
     },
-    store: new MongoDBStore({
-      uri: process.env.MONGO,
-      collection: 'sessions',
-    })
+    
   })
 );
 
