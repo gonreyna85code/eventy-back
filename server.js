@@ -15,7 +15,7 @@ app.name = "API";
 
 
 app.use(cors({
-	origin: "https://eventy-main-pmbecp9ib-gonreyna85code.vercel.app",
+	origin: "https://eventy-main-6bcvf4ivu-gonreyna85code.vercel.app",
   credentials: true,
 	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 	preflightContinue: true,
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Set-Cookie')
     console.log('!OPTIONS');
     var headers = {};
-    headers["Access-Control-Allow-Origin"] = "https://eventy-main-pmbecp9ib-gonreyna85code.vercel.app";
+    headers["Access-Control-Allow-Origin"] = "https://eventy-main-6bcvf4ivu-gonreyna85code.vercel.app";
     headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
     headers["Access-Control-Allow-Credentials"] = true;
     headers["Access-Control-Max-Age"] = '86400'; // 24 hours
