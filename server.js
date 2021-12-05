@@ -21,6 +21,23 @@ app.use(cors({
   credentials: true,
 }));
 
+app.use((req, res, next) => {
+  if(req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.send(200);
+  } else {
+    next();
+  }
+});
+
+
+
+
+
+
 
 mongoose.connect(
   process.env.MONGO,
