@@ -20,6 +20,7 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/register", (req, res) => {
+  cconsole.log('hola')
   console.log(req.body);
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
