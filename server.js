@@ -25,9 +25,8 @@ app.use(cors({
 app.use((req, res, next) => {
   if(req.method == "OPTIONS") {
     res.header("Access-Control-Allow-Origin", 'https://eventy-main-d2b1h4ai4-gonreyna85code.vercel.app');
-    res.header("Access-Control-Allow-Headers", "Content-Type, application/json" );
+    res.header("Access-Control-Allow-Headers", "Content-Type, application/json, Origin, X-Requested-With, Content-Type, x-www-form-urlencoded, Accept, Authorization" );
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header();
     res.header("Access-Control-Allow-Credentials", true);    
     res.sendStatus(200);
   } else {
