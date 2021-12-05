@@ -15,7 +15,7 @@ const MongoStore = require("connect-mongo");
 app.name = "API";
 require("./passportConfig")(passport);
 
-server.use(
+app.use(
   cors({
     origin: true,             //se habilitan las credenciales de cors para los pedidos que vengan del front
     credentials: true,
