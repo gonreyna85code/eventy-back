@@ -22,6 +22,8 @@ app.options('*', cors())
 app.use(cors({
   credentials: true,
   origin: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  
 }));
 
 
