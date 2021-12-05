@@ -12,6 +12,7 @@ const event = require("./routes/event");
 const cors = require("cors");
 const morgan = require("morgan");
 const MongoStore = require("connect-mongo");
+const MongoDBStore = require('connect-mongodb-session')(session);
 app.name = "API";
 require("./passportConfig")(passport);
 
@@ -84,10 +85,10 @@ app.use(
       httpOnly: true,
       maxAge: 8600000,
     },
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO,
-      ttl: 14 * 24 * 60 * 60,
-    }),
+    store: new MongoDBStore({
+      uri: process.env.MONGO,
+      collection: 'sessions',
+    })
   })
 );
 
