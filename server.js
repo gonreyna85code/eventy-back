@@ -33,6 +33,7 @@ app.use((req, res, next) => {
     //res.header("Access-Control-Allow-Credentials", true);    
     res.sendStatus(200);
   } else {
+    console.log(req.body)
   res.header('Access-Control-Allow-Origin', 'https://eventy-main-d2b1h4ai4-gonreyna85code.vercel.app'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
