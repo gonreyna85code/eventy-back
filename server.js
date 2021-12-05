@@ -16,11 +16,6 @@ app.name = "API";
 require("./passportConfig")(passport);
 
 
-app.options('*', cors())   
-
-
-
-
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", 'https://eventy-main-4wt9jlomb-gonreyna85code.vercel.app');
