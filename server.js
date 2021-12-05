@@ -17,16 +17,17 @@ require("./passportConfig")(passport);
 
 
 app.use(cors({
-  credentials: true,
+  //credentials: true,
   origin: true,
 }));
+
 
 app.use((req, res, next) => {
   if(req.method == "OPTIONS") {
     res.header("Access-Control-Allow-Origin", 'https://eventy-main-d2b1h4ai4-gonreyna85code.vercel.app');
     res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers" );
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Credentials", true);    
+    //res.header("Access-Control-Allow-Credentials", true);    
     res.sendStatus(200);
   } else {
     next();
