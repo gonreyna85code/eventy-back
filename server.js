@@ -16,10 +16,7 @@ app.name = "API";
 require("./passportConfig")(passport);
 
 
-app.use(cors({
-  preflightContinue: false,
-  credentials: true,
-}));
+
 
 app.use((req, res, next) => {
   if(req.method == "OPTIONS") {
@@ -33,7 +30,10 @@ app.use((req, res, next) => {
   }
 });
 
-
+app.use(cors({
+  preflightContinue: false,
+  credentials: true,
+}));
 
 
 
