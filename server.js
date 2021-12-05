@@ -27,7 +27,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Set-Cookie')
     console.log('!OPTIONS');
     var headers = {};
-    headers["Access-Control-Allow-Origin"] = "https://eventy-main-qmbuke3o4-gonreyna85code.vercel.app";
+    headers["Access-Control-Allow-Origin"] = "https://eventy-main-pmbecp9ib-gonreyna85code.vercel.app";
     headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
     headers["Access-Control-Allow-Credentials"] = true;
     headers["Access-Control-Max-Age"] = '86400'; // 24 hours
