@@ -12,6 +12,7 @@ const event = require("./routes/event");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const morgan = require('morgan');
+const User = require("../models/user");
 
 passport.use(
   new localStrategy((username, password, done) => {
@@ -32,7 +33,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser((id, cb) => {
