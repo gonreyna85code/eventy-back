@@ -80,7 +80,7 @@ app.use(
     saveUninitialized: true,
     secret: "secretcode",
     cookie: {
-      
+      origin: true,
       secure: true,
       
     },
