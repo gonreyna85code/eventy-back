@@ -20,7 +20,7 @@ app.options('*', cors())
 
 
 app.use(cors({
-  //credentials: true,
+  credentials: true,
   origin: true,
 }));
 
