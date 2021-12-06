@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const passport = require("passport");
 const Event = require("../models/event");
-const jwt = require("jsonwebtoken");
+
 
 const router = Router();
 

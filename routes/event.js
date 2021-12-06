@@ -1,6 +1,7 @@
 const Router = require("express");
 const Event = require("../models/event");
 const User = require("../models/user");
+const passport = require("passport");
 
 
 const router = Router();
