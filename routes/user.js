@@ -30,7 +30,7 @@ router.get("/logout", function (req, res) {
   res.send("Usuario no logueado");
 });
 
-router.get("/user",passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/user", async (req, res) => {
   const near = await Event.find({ location: req.user?.profile?.city });
   const follows = await Event.find({ category: req.user?.subscriptions });
   if (req.user) {

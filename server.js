@@ -24,6 +24,7 @@ app.use(
 app.set("trust proxy", 1);
 
 app.use(async(req, res, next) => {
+  console.log("req.headers", req.headers);
   if (req.method === "OPTIONS") {
     res.header(
       "Access-Control-Allow-Origin",
@@ -97,8 +98,8 @@ app.use(morgan("dev"));
 // );
 
 app.use(passport.initialize());
-//app.use(passport.session());
 
+app.use('/', passport.authenticate('jwt', { session: false }), user);
 app.use("/", user);
 app.use("/", event);
 app.post("/login", (req, res, next) => {
@@ -116,7 +117,7 @@ app.post("/login", (req, res, next) => {
     }
   })(req, res, next);
 });
-//app.use('/user', passport.authenticate('jwt', { session: false }), user);
+
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
