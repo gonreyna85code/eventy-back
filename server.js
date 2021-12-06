@@ -87,30 +87,30 @@ app.use(
     }),
   })
 );
-// app.use(
-//   session({
-//     store: MongoStore.create({
-//       mongoUrl: process.env.MONGO,
-//       ttl: 14 * 24 * 60 * 60,
-//     }),
-//     name: "admin_session",
-//     expires: new Date(Date.now() + 900000),
-//     resave: false,
-//     //rolling: false,
-//     saveUninitialized: false,
-//     //unset: "destroy",
-//     secret: "secretcode",
-//     cookie: {
-//       //domain: "eventy-main-k6m7r9hk3-gonreyna85code.vercel.app",
-//       //expires: new Date(Date.now() + 3600000),
-//       secure: false,
-//       httpOnly: true,
-//       sameSite: 'none',
-//       //maxAge: 14 * 24 * 60 * 60 * 1000,
-//     },
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+      ttl: 14 * 24 * 60 * 60,
+    }),
+    name: "admin_session",
+    expires: new Date(Date.now() + 900000),
+    resave: false,
+    //rolling: false,
+    saveUninitialized: false,
+    //unset: "destroy",
+    secret: "secretcode",
+    cookie: {
+      //domain: "eventy-main-k6m7r9hk3-gonreyna85code.vercel.app",
+      //expires: new Date(Date.now() + 3600000),
+      secure: false,
+      httpOnly: true,
+      sameSite: 'none',
+      //maxAge: 14 * 24 * 60 * 60 * 1000,
+    },
 
-//   })
-// );
+  })
+);
 
 app.use(passport.initialize());
 
