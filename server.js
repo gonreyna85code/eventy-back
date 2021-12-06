@@ -18,8 +18,12 @@ const jwt = require("jsonwebtoken");
 
 
 app.use(
-  cors()
-);
+  cors(
+    {
+      origin: true,
+      credentials: true,
+    }
+));
 
 app.set("trust proxy", 1);
 
