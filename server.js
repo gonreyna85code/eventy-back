@@ -15,7 +15,8 @@ const MongoStore = require("connect-mongo");
 app.name = "API";
 require("./passportConfig")(passport);
 const jwt = require("jsonwebtoken");
-var session = require("express-session-jwt");
+//var session = require("express-session-jwt");
+const cookieSession = require('cookie-session')
 
 app.use(
   cors({
@@ -52,7 +53,7 @@ app.use(async (req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Cookie, Accept, Authorization, Set-Cookie"
   );
-
+//set.cookie("Access-Control-Allow-Origin", "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app");
   next();
 });
 
@@ -80,25 +81,25 @@ const store = MongoStore.create({
 });
 
 app.use(
-  session({
-    name:session.name,
-    secret: "mysecret",
-    resave: true,
-    saveUninitialized: true,
-    store: store,
+  cookieSession({
+    name:cookieSession.name,
+    //secret: "mysecret",
+    //resave: true,
+    //saveUninitialized: true,
+    //store: store,
     keys: {
       public:
         "-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEDXMuNS4pyqkpZwij+UCcTPVStZHmG39D\nP1V7qaPCfc0ewXXbcEaJiarqjHOM5a6SVivCaUdJj+25tjMk4sPchQ==\n-----END PUBLIC KEY-----",
       private:
         "-----BEGIN PRIVATE KEY-----\nMIGEAgEAMBAGByqGSM49AgEGBSuBBAAKBG0wawIBAQQgvK1dk5M81nax8lQxpbWo\nsB1oK9YAqRP7MwWc7wDne8ehRANCAAQNcy41LinKqSlnCKP5QJxM9VK1keYbf0M/\nVXupo8J9zR7BddtwRomJquqMc4zlrpJWK8JpR0mP7bm2MyTiw9yF\n-----END PRIVATE KEY-----",
     },
-    cookie: {
-      //domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
-      httpOnly: true,
-      secure: false,
-      maxAge: 1000 * 60 * 60 * 24 * 14,
-      sameSite: "none",
-    },
+    // cookie: {
+    //   //domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
+    //   httpOnly: true,
+    //   secure: false,
+    //   maxAge: 1000 * 60 * 60 * 24 * 14,
+    //   sameSite: "none",
+    // },
   })
 );
 
