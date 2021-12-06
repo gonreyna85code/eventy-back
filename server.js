@@ -27,7 +27,7 @@ app.use(async(req, res, next) => {
   if (req.method === "OPTIONS") {
     res.header(
       "Access-Control-Allow-Origin",
-      "https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app"
+      "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app"
     );
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
@@ -40,7 +40,7 @@ app.use(async(req, res, next) => {
   
   res.header(
     "Access-Control-Allow-Origin",
-    "https://eventy-main-k6m7r9hk3-gonreyna85code.vercel.app"
+    "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app"
   );
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");

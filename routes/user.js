@@ -31,7 +31,6 @@ router.get("/logout", function (req, res) {
 });
 
 router.get("/user",passport.authenticate('jwt', { session: false }), async (req, res) => {
-  console.log(req.query.secret_token)
   const near = await Event.find({ location: req.user?.profile?.city });
   const follows = await Event.find({ category: req.user?.subscriptions });
   if (req.user) {
@@ -47,7 +46,6 @@ router.get("/user",passport.authenticate('jwt', { session: false }), async (req,
     })
       .populate("follows")
       .populate("events");
-      console.log(doc)
   } else {
     res.send("Usuario no logueado");
   }
