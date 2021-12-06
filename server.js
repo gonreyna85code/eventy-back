@@ -68,7 +68,7 @@ mongoose.connect(
 );
 mongoose.set("useCreateIndex", true);
 
-app.use(express.json());
+//app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 //app.use(cookieParser());
@@ -93,9 +93,9 @@ app.use(
         "-----BEGIN PRIVATE KEY-----\nMIGEAgEAMBAGByqGSM49AgEGBSuBBAAKBG0wawIBAQQgvK1dk5M81nax8lQxpbWo\nsB1oK9YAqRP7MwWc7wDne8ehRANCAAQNcy41LinKqSlnCKP5QJxM9VK1keYbf0M/\nVXupo8J9zR7BddtwRomJquqMc4zlrpJWK8JpR0mP7bm2MyTiw9yF\n-----END PRIVATE KEY-----",
     },
     cookie: {
-      domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
+      //domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
       httpOnly: true,
-      secure: true,
+      secure: false,
       maxAge: 1000 * 60 * 60 * 24 * 14,
       sameSite: "none",
     },
