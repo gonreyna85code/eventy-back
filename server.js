@@ -91,6 +91,11 @@ app.use(
       private:
         "-----BEGIN PRIVATE KEY-----\nMIGEAgEAMBAGByqGSM49AgEGBSuBBAAKBG0wawIBAQQgvK1dk5M81nax8lQxpbWo\nsB1oK9YAqRP7MwWc7wDne8ehRANCAAQNcy41LinKqSlnCKP5QJxM9VK1keYbf0M/\nVXupo8J9zR7BddtwRomJquqMc4zlrpJWK8JpR0mP7bm2MyTiw9yF\n-----END PRIVATE KEY-----",
     },
+    cookie: {
+      domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
+      httpOnly: true,
+      secure: true,
+    },
   })
 );
 
