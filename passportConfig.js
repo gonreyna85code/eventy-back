@@ -4,8 +4,9 @@ const localStrategy = require("passport-local").Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
-module.exports = function (passport) {
+module.exports = function (passport) {  
   passport.use(
+    'login',
     new localStrategy((username, password, done) => {      
       User.findOne({ username: username }, (err, user) => {
         if (err) throw err;
@@ -21,15 +22,18 @@ module.exports = function (passport) {
       });
     })
   );
-
-  passport.use(
+ 
+  
+  passport.use(   
+      
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+        jwtFromRequest: ExtractJWT.fromHeader('secret_token')
       },
       async (token, done) => {
         try {
+          console.log(token);
           return done(null, token.user);
         } catch (error) {
           done(error);
@@ -38,14 +42,5 @@ module.exports = function (passport) {
     )
   );
 
-  passport.serializeUser((user, cb) => {
-    console.log("serialize: ", user._id);
-    return cb(null, user._id);
-  });
-  passport.deserializeUser((id, cb) => {
-    console.log("deserializeUser: ", id);
-   return  User.findOne({ _id: id }, (err, user) => {
-      return cb(err, user);
-    });
-  });
+  
 };
