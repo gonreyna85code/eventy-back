@@ -97,6 +97,8 @@ app.use(
       domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
       httpOnly: true,
       secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 14,
+      sameSite: "none",
     },
   })
 );
