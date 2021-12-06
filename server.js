@@ -28,6 +28,7 @@ app.set("trust proxy", 1);
 
 app.use(async (req, res, next) => {
   console.log("req.headers", req.headers);
+  console.log("req.cookies", req.cookies);
   if (req.method === "OPTIONS") {
     res.header(
       "Access-Control-Allow-Origin",
@@ -81,6 +82,7 @@ const store = MongoStore.create({
 
 app.use(
   session({
+    name:session.name,
     secret: "mysecret",
     resave: true,
     saveUninitialized: true,
