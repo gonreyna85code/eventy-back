@@ -116,6 +116,8 @@ app.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
+app.use("/", user);
+app.use("/", event);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
