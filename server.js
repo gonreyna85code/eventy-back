@@ -19,7 +19,7 @@ var session = require("express-session-jwt");
 
 app.use(
   cors({
-    origin: true,
+    origin: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
     credentials: true,
   })
 );
