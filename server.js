@@ -17,12 +17,11 @@ require("./passportConfig")(passport);
 const jwt = require("jsonwebtoken");
 var session = require("express-session-jwt");
 
-// app.use(
-//   cors({
-//     origin: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    
+  })
+);
 
 app.set("trust proxy", 1);
 
