@@ -74,41 +74,23 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser("secretcode"));
 app.use(morgan("dev"));
 
-app.use(
-  session({
-    secret: 'mysecret',
-  keys: {
-    public: 'public',
-    private: 'secret',
-  },
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO,
-      ttl: 14 * 24 * 60 * 60,
-    }),
-  })
-);
-app.use(
-  session({
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO,
-      ttl: 14 * 24 * 60 * 60,
-    }),
-    name: "admin_session",
-    expires: new Date(Date.now() + 900000),
-    resave: false,
-    //rolling: false,
-    saveUninitialized: false,
-    //unset: "destroy",
-    secret: "secretcode",
-    cookie: {
-      //domain: "eventy-main-k6m7r9hk3-gonreyna85code.vercel.app",
-      //expires: new Date(Date.now() + 3600000),
-      secure: false,
-      httpOnly: true,
-      sameSite: 'none',
-      //maxAge: 14 * 24 * 60 * 60 * 1000,
-    },
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO,
+  ttl: 14 * 24 * 60 * 60,
+});
 
+app.use(
+  session({
+    secret: "mysecret",
+    resave: true,
+    saveUninitialized: true,
+    store: store,
+    keys: {
+      public:
+        "-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEDXMuNS4pyqkpZwij+UCcTPVStZHmG39D\nP1V7qaPCfc0ewXXbcEaJiarqjHOM5a6SVivCaUdJj+25tjMk4sPchQ==\n-----END PUBLIC KEY-----",
+      private:
+        "-----BEGIN PRIVATE KEY-----\nMIGEAgEAMBAGByqGSM49AgEGBSuBBAAKBG0wawIBAQQgvK1dk5M81nax8lQxpbWo\nsB1oK9YAqRP7MwWc7wDne8ehRANCAAQNcy41LinKqSlnCKP5QJxM9VK1keYbf0M/\nVXupo8J9zR7BddtwRomJquqMc4zlrpJWK8JpR0mP7bm2MyTiw9yF\n-----END PRIVATE KEY-----",
+    },
   })
 );
 
