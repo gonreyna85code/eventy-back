@@ -30,7 +30,7 @@ router.get("/logout", function (req, res) {
   res.send("Usuario no logueado");
 });
 
-router.get("/user", async (req, res) => {
+router.get("/user", passport.authenticate('jwt', { session: false }), async (req, res) => {
   const near = await Event.find({ location: req.user?.profile?.city });
   const follows = await Event.find({ category: req.user?.subscriptions });
   if (req.user) {
@@ -51,7 +51,7 @@ router.get("/user", async (req, res) => {
   }
 });
 
-router.put("/user_update", (req, res, next) => {
+router.put("/user_update", passport.authenticate('jwt', { session: false }), (req, res, next) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not Found");

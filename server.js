@@ -99,8 +99,6 @@ app.use(morgan("dev"));
 
 app.use(passport.initialize());
 
-app.use('/', passport.authenticate('jwt', { session: false }), user);
-app.use('/', passport.authenticate('jwt', { session: false }), event);
 
 app.post("/login", (req, res, next) => {
   passport.authenticate("login", (err, user, info) => {

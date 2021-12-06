@@ -5,13 +5,9 @@ const User = require("../models/user");
 
 const router = Router();
 
-const isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-  res.sendStatus(401);
-}
 
-router.post("/event",isAuthenticated, function(req, res){
+
+router.post("/event", passport.authenticate('jwt', { session: false }), function(req, res){
   Event.findOne({ name: req.body.name }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("Event Already Exists");
@@ -33,7 +29,7 @@ router.post("/event",isAuthenticated, function(req, res){
 });
 
 
-router.get("/event/:name", isAuthenticated, async (req, res) => {
+router.get("/event/:name",  passport.authenticate('jwt', { session: false }), async (req, res) => {
   const {name} = req.params;
   var response = await Event.find({ name: name });
   response.length > 0 ?
@@ -41,7 +37,7 @@ router.get("/event/:name", isAuthenticated, async (req, res) => {
   res.status(404).send('No hay eventos')
 });
 
-router.get("/eventsAll/:parametro", isAuthenticated, async (req,res)=> {
+router.get("/eventsAll/:parametro",  passport.authenticate('jwt', { session: false }), async (req,res)=> {
   var parametro = req.params.parametro.toLowerCase(); 
   var nombre, lugar, info; 
   var response = await Event.find(); //Aqui se piden todos los datos de la base de datos
@@ -69,7 +65,7 @@ router.get("/eventsAll/:parametro", isAuthenticated, async (req,res)=> {
   else res.json(resultado)
 })
 
-router.get("/events/filter/categoria-:categoria?/ciudad-:ciudad?/pago-:pago?",isAuthenticated, async (req,res)=>{
+router.get("/events/filter/categoria-:categoria?/ciudad-:ciudad?/pago-:pago?", passport.authenticate('jwt', { session: false }), async (req,res)=>{
   var categoria = req.params.categoria.toLowerCase(); //acepta un string con el nombre parcial o total de una categoria; 
   var ciudad = req.params.ciudad.toLowerCase(); //acepta un string con el nombre parcial o total de la ciudad;
   var pago = parseInt(req.params.pago); //acepta 0 para no pago y 1 para pago
@@ -107,21 +103,21 @@ router.get("/events/filter/categoria-:categoria?/ciudad-:ciudad?/pago-:pago?",is
   else {res.json(tercerFiltro)}
 })
 
-router.get('/socialEvents', isAuthenticated, async (req,res)=>{
+router.get('/socialEvents',  passport.authenticate('jwt', { session: false }), async (req,res)=>{
   var response = await Event.find({category: 'social'});
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay eventos')
 })
 
-router.get('/sportEvents', isAuthenticated, async (req,res)=>{
+router.get('/sportEvents',  passport.authenticate('jwt', { session: false }), async (req,res)=>{
 var response = await Event.find({category: 'sports'});
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay eventos')
 })
 
-router.get('/allEvents', isAuthenticated, async(req,res)=>{
+router.get('/allEvents',  passport.authenticate('jwt', { session: false }), async(req,res)=>{
   var response = await Event.find();
   response.length > 0 ?
   res.status(200).send(response) :
