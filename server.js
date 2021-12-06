@@ -19,7 +19,7 @@ const session = require("express-session-jwt");
 
 app.use(
   cors({
-    origin: "https://eventy-main-zv2zhb3zr-gonreyna85code.vercel.app",
+    origin: "https://eventy-main-6o3sje4db-gonreyna85code.vercel.app",
     credentials: true
 
   })
@@ -33,7 +33,7 @@ app.use(async (req, res, next) => {
   if (req.method === "OPTIONS") {
     res.header(
       "Access-Control-Allow-Origin",
-      "https://eventy-main-zv2zhb3zr-gonreyna85code.vercel.app"
+      "https://eventy-main-6o3sje4db-gonreyna85code.vercel.app"
     );
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
@@ -46,7 +46,7 @@ app.use(async (req, res, next) => {
 
   res.header(
     "Access-Control-Allow-Origin",
-    "https://eventy-main-zv2zhb3zr-gonreyna85code.vercel.app"
+    "https://eventy-main-6o3sje4db-gonreyna85code.vercel.app"
   );
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
