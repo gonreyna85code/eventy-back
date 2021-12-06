@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const passport = require("passport");
 const Event = require("../models/event");
+const jwt = require("jsonwebtoken");
 
 const router = Router();
 
@@ -13,15 +14,15 @@ router.post("/login", (req, res, next) => {
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        console.log(req.session)
-        console.log('session ID: ',req.sessionID)
-        res.send("Successfully Authenticated");
+        const body = { _id: user._id, email: user.email };
+        const token = jwt.sign({ user: body }, "TOP_SECRET");
+        return res.json({ token })//.send("Successfully Authenticated");        
       });
     }
   })(req, res, next);
 });
 
-router.post("/register", (req, res) => {  
+router.post("/register", (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send("User Already Exists");
@@ -37,9 +38,9 @@ router.post("/register", (req, res) => {
     }
   });
 });
-router.get('/logout', function (req, res){
-  req.logOut()  // <-- not req.logout();
-  res.send('Usuario no logueado')
+router.get("/logout", function (req, res) {
+  req.logOut(); // <-- not req.logout();
+  res.send("Usuario no logueado");
 });
 
 router.get("/user", async (req, res) => {
@@ -55,7 +56,9 @@ router.get("/user", async (req, res) => {
         doc.save();
         res.send(doc);
       }
-    }).populate('follows').populate('events');
+    })
+      .populate("follows")
+      .populate("events");
   } else {
     res.send("Usuario no logueado");
   }
@@ -67,8 +70,8 @@ router.put("/user_update", (req, res, next) => {
     if (!doc) res.send("User Not Found");
     if (doc) {
       doc.profile = req.body.profile;
-      await doc.save().then((r)=>{
-        console.log(doc)
+      await doc.save().then((r) => {
+        console.log(doc);
         res.send("User Updated");
       });
     }

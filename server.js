@@ -72,10 +72,10 @@ app.use(morgan("dev"));
 
 app.use(
   session({
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO,
-      ttl: 14 * 24 * 60 * 60,
-    }),
+    // store: MongoStore.create({
+    //   mongoUrl: process.env.MONGO,
+    //   ttl: 14 * 24 * 60 * 60,
+    // }),
     name: "admin_session",
     expires: new Date(Date.now() + 900000),
     resave: false,
