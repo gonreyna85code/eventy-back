@@ -1,10 +1,9 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-//const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
-//const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
 const user = require("./routes/user");
@@ -13,10 +12,10 @@ const cors = require("cors");
 const morgan = require("morgan");
 const MongoStore = require("connect-mongo");
 app.name = "API";
-require("./passportConfig")(passport);
+
 const jwt = require("jsonwebtoken");
-//var session = require("express-session-jwt");
-const cookieSession = require('cookie-session')
+const session = require("express-session-jwt");
+
 
 app.use(
   cors({
@@ -69,10 +68,10 @@ mongoose.connect(
 );
 mongoose.set("useCreateIndex", true);
 
-//app.use(express.json());
+
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
-//app.use(cookieParser());
+app.use(cookieParser());
 app.use(morgan("dev"));
 
 const store = MongoStore.create({
@@ -81,28 +80,29 @@ const store = MongoStore.create({
 });
 
 app.use(
-  cookieSession({
-    name:cookieSession.name,
-    //secret: "mysecret",
-    //resave: true,
-    //saveUninitialized: true,
-    //store: store,
+  session({
+    name:session.name,
+    secret: "mysecret",
+    resave: true,
+    saveUninitialized: true,
+    store: store,
     keys: {
       public:
         "-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEDXMuNS4pyqkpZwij+UCcTPVStZHmG39D\nP1V7qaPCfc0ewXXbcEaJiarqjHOM5a6SVivCaUdJj+25tjMk4sPchQ==\n-----END PUBLIC KEY-----",
       private:
         "-----BEGIN PRIVATE KEY-----\nMIGEAgEAMBAGByqGSM49AgEGBSuBBAAKBG0wawIBAQQgvK1dk5M81nax8lQxpbWo\nsB1oK9YAqRP7MwWc7wDne8ehRANCAAQNcy41LinKqSlnCKP5QJxM9VK1keYbf0M/\nVXupo8J9zR7BddtwRomJquqMc4zlrpJWK8JpR0mP7bm2MyTiw9yF\n-----END PRIVATE KEY-----",
     },
-    // cookie: {
-    //   //domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
-    //   httpOnly: true,
-    //   secure: false,
-    //   maxAge: 1000 * 60 * 60 * 24 * 14,
-    //   sameSite: "none",
-    // },
+    cookie: {
+      //domain: "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app",
+      httpOnly: true,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24 * 14,
+      sameSite: "none",
+    },
   })
 );
 
+require("./passportConfig")(passport);
 app.use(passport.initialize());
 
 app.post("/login", (req, res, next) => {
