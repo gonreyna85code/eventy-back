@@ -15,19 +15,18 @@ const MongoStore = require("connect-mongo");
 app.name = "API";
 require("./passportConfig")(passport);
 const jwt = require("jsonwebtoken");
-
+var session = require("express-session-jwt");
 
 app.use(
-  cors(
-    {
-      origin: true,
-      credentials: true,
-    }
-));
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 app.set("trust proxy", 1);
 
-app.use(async(req, res, next) => {
+app.use(async (req, res, next) => {
   console.log("req.headers", req.headers);
   if (req.method === "OPTIONS") {
     res.header(
@@ -42,7 +41,7 @@ app.use(async(req, res, next) => {
     );
     return res.status(200).json({});
   }
-  
+
   res.header(
     "Access-Control-Allow-Origin",
     "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app"
@@ -53,7 +52,7 @@ app.use(async(req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Accept, Authorization, Set-Cookie, Cookie"
   );
-  
+
   next();
 });
 
@@ -62,7 +61,6 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  
   },
   () => {
     console.log("Mongoose Is Connected");
@@ -76,6 +74,19 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser("secretcode"));
 app.use(morgan("dev"));
 
+app.use(
+  session({
+    secret: 'mysecret',
+  keys: {
+    public: 'public',
+    private: 'secret',
+  },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+      ttl: 14 * 24 * 60 * 60,
+    }),
+  })
+);
 // app.use(
 //   session({
 //     store: MongoStore.create({
@@ -89,20 +100,19 @@ app.use(morgan("dev"));
 //     saveUninitialized: false,
 //     //unset: "destroy",
 //     secret: "secretcode",
-//     cookie: {     
+//     cookie: {
 //       //domain: "eventy-main-k6m7r9hk3-gonreyna85code.vercel.app",
-//       //expires: new Date(Date.now() + 3600000), 
+//       //expires: new Date(Date.now() + 3600000),
 //       secure: false,
 //       httpOnly: true,
 //       sameSite: 'none',
-//       //maxAge: 14 * 24 * 60 * 60 * 1000,      
+//       //maxAge: 14 * 24 * 60 * 60 * 1000,
 //     },
-    
+
 //   })
 // );
 
 app.use(passport.initialize());
-
 
 app.post("/login", (req, res, next) => {
   passport.authenticate("login", (err, user, info) => {
@@ -113,8 +123,8 @@ app.post("/login", (req, res, next) => {
         if (err) throw err;
         const body = { _id: user._id, email: user.email };
         const token = jwt.sign({ user: body }, "TOP_SECRET");
-        console.log(token)
-        return res.json({ token })//.send("Successfully Authenticated");        
+        console.log(token);
+        return res.json({ token }); //.send("Successfully Authenticated");
       });
     }
   })(req, res, next);
