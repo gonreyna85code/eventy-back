@@ -50,7 +50,7 @@ app.use(async (req, res, next) => {
   res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Accept, Authorization, Set-Cookie, Cookie"
+    "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Cookie, Accept, Authorization, Set-Cookie"
   );
 
   next();
