@@ -13,7 +13,7 @@ router.get("/user", passport.authenticate('jwt', { session: false }), async (req
   const follows = await Event.find({ category: req.user?.subscriptions });
   console.log(req.user)
   if (req.user) {
-    User.findOne({ _id: req.user.id }, async (err, doc) => {
+    User.findOne({ _id: req.user._id }, async (err, doc) => {
       if (err) throw err;
       if (!doc) res.send("User Not Found");
       if (doc) {
