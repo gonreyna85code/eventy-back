@@ -4,6 +4,7 @@ const localStrategy = require("passport-local").Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
+
 module.exports = function (passport) {  
   passport.use(
     'login',

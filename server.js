@@ -9,7 +9,6 @@ const auth = require("./routes/auth");
 const event = require("./routes/event");
 const cors = require("cors");
 const morgan = require("morgan");
-const MongoStore = require("connect-mongo");
 const app = express();
 
 app.name = "API";
