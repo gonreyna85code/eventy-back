@@ -4,10 +4,7 @@ const User = require("../models/user");
 const passport = require("passport");
 const Event = require("../models/event");
 
-
 const router = Router();
-
-
 
 router.post("/register", (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {

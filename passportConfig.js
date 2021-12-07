@@ -21,11 +21,9 @@ module.exports = function (passport) {
         });
       });
     })
-  );
- 
+  ); 
   
-  passport.use(   
-      
+  passport.use(         
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
@@ -40,7 +38,5 @@ module.exports = function (passport) {
         }
       }
     )
-  );
-
-  
+  );  
 };
