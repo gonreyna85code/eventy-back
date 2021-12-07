@@ -28,7 +28,7 @@ module.exports = function (passport) {
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJWT.fromHeader('secret_token')
+        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
       },
       async (token, done) => {
         try {
