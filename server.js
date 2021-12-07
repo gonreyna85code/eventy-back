@@ -13,7 +13,7 @@ const app = express();
 
 app.name = "API";
 
-//app.use(  cors({origin: "https://eventy-main.vercel.app", credentials: true}));
+app.use(  cors({origin: "https://eventy-main.vercel.app", credentials: true}));
 
 app.set("trust proxy", 1);
 
