@@ -5,29 +5,28 @@ const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
 const user = require("./routes/user");
+const auth = require("./routes/auth");
 const event = require("./routes/event");
 const cors = require("cors");
 const morgan = require("morgan");
 const MongoStore = require("connect-mongo");
-const jwt = require("jsonwebtoken");
-const session = require("express-session-jwt");
 const app = express();
 
 app.name = "API";
 
-app.use(  cors({origin: "https://eventy-main-k9u23v0l7-gonreyna85code.vercel.app", credentials: true}));
+app.use(  cors({origin: "https://eventy-main.vercel.app", credentials: true}));
 
 app.set("trust proxy", 1);
 
 app.use(async (req, res, next) => {
   if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Origin", "https://eventy-main-k9u23v0l7-gonreyna85code.vercel.app");
+    res.header("Access-Control-Allow-Origin", "https://eventy-main.vercel.app");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Accept, Authorization, Set-Cookie, Cookie");
     return res.status(200).json({});
   }
-  res.header("Access-Control-Allow-Origin", "https://eventy-main-k9u23v0l7-gonreyna85code.vercel.app");
+  res.header("Access-Control-Allow-Origin", "https://eventy-main.vercel.app");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Cookie, Accept, Authorization, Set-Cookie");
@@ -46,22 +45,8 @@ app.use(morgan("dev"));
 require("./passportConfig")(passport);
 app.use(passport.initialize());
 
-app.post("/login", (req, res, next) => {
-  passport.authenticate("login", (err, user, info) => {
-    if (err) throw err;
-    if (!user) res.send("No User Exists");
-    else {
-      req.logIn(user, { session: false }, (err) => {
-        if (err) throw err;
-        const body = { _id: user._id, email: user.email };
-        const token = jwt.sign({ user: body }, "TOP_SECRET");
-        console.log(token);
-        return res.json({ token }); //.send("Successfully Authenticated");
-      });
-    }
-  })(req, res, next);
-});
 
+app.use("/", auth);
 app.use("/", user);
 app.use("/", event);
 

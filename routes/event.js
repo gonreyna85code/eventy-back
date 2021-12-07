@@ -1,8 +1,11 @@
 const Router = require("express");
 const Event = require("../models/event");
 const User = require("../models/user");
-const passport = require("passport");
+const mercadopago = require ('mercadopago');
 
+mercadopago.configure({
+  access_token: 'TEST-7103077711305655-113021-c4a62acbbc30cccc0cfbc219280a11c8-274464234'
+});
 
 const router = Router();
 
@@ -30,21 +33,22 @@ router.post("/event", passport.authenticate('jwt', { session: false }), function
 });
 
 
-router.get("/event/:name",  passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/event/:name", passport.authenticate('jwt', { session: false }), async (req, res) => {
   const {name} = req.params;
   var response = await Event.find({ name: name });
+  console.log(response);
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay eventos')
 });
 
-router.get("/eventsAll/:parametro",  passport.authenticate('jwt', { session: false }), async (req,res)=> {
+router.get("/eventsAll/:parametro", passport.authenticate('jwt', { session: false }), async (req,res)=> {
   var parametro = req.params.parametro.toLowerCase(); 
   var nombre, lugar, info; 
   var response = await Event.find(); //Aqui se piden todos los datos de la base de datos
   //Aqui se compara el paremetro de busqueda con los tres principales parametros de cada evento con el fin de encontrar lo que le cliente busca
   nombre = response.filter(evento => {return evento.name.toLowerCase().includes(parametro)}); 
-  lugar = response.filter(evento => {return evento.location.toLowerCase().includes(parametro)}); 
+  lugar = response.filter(evento => {return evento.location.cityName.toLowerCase().includes(parametro)}); 
   info = response.filter(evento => {if (evento.info && evento.info.description)return evento.info.description.toLowerCase().includes(parametro)})
 
   var resultado = nombre.concat(lugar.concat(info)); 
@@ -104,26 +108,89 @@ router.get("/events/filter/categoria-:categoria?/ciudad-:ciudad?/pago-:pago?", p
   else {res.json(tercerFiltro)}
 })
 
-router.get('/socialEvents',  passport.authenticate('jwt', { session: false }), async (req,res)=>{
+router.get('/socialEvents', passport.authenticate('jwt', { session: false }), async (req,res)=>{
   var response = await Event.find({category: 'social'});
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay eventos')
 })
 
-router.get('/sportEvents',  passport.authenticate('jwt', { session: false }), async (req,res)=>{
+router.get('/sportEvents', passport.authenticate('jwt', { session: false }), async (req,res)=>{
 var response = await Event.find({category: 'sports'});
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay eventos')
 })
 
-router.get('/allEvents',  passport.authenticate('jwt', { session: false }), async(req,res)=>{
+router.get('/allEvents', passport.authenticate('jwt', { session: false }), async(req,res)=>{
   var response = await Event.find();
   response.length > 0 ?
   res.status(200).send(response) :
   res.status(404).send('No hay Eventos')
 })
 
-module.exports = router;
 
+//Ruta para traer los eventos que iran en la landing page
+router.get('/lp-events', async(req,res)=>{
+  var response = await Event.find({}, 'name location date info.imagen').limit(6);
+  response.length > 0 ?
+  res.status(200).send(response) :
+  res.status(404).send('No hay Eventos')
+})
+
+
+router.post("/create_preference", passport.authenticate('jwt', { session: false }), (req, res) => {
+
+  const {title, price, quantity} = req.body;
+
+	let preference = {
+		items: [
+			{
+				title: title,
+				unit_price: Number(price),
+				quantity: Number(quantity),
+			}
+		],
+		//back_urls: {
+		//	"success": "http://localhost:8080/feedback",
+		//	"failure": "http://localhost:8080/feedback",
+		//	"pending": "http://localhost:8080/feedback"
+		//},
+		//auto_return: "approved",
+	};
+  console.log(preference)
+
+	mercadopago.preferences.create(preference)
+		.then(function (response) {
+      global.id = response.body.id
+			res.json({
+				id: response.body.id
+			});
+		}).catch(function (error) {
+			console.log(error);
+		});
+});
+
+router.put('/editarEvento/:name', passport.authenticate('jwt', { session: false }), (req, res)=>{
+  const name = req.params;
+  console.log(name);
+
+  Event.findOneAndUpdate({ name: name.name },
+    {
+      name: req.body.name,
+      location: req.body.location,
+      info: req.body.info,
+      event_pay: req.body.event_pay,
+      date: req.body.date,
+      user: req.body.user,
+      category: req.body.category,
+      subcategory: req.body.subcategory,
+    }, (error, evento) =>{
+      if(error){console.log(error)}
+      console.log(evento)
+    });
+    console.log('hecho');
+    res.status(200).send(req.body)
+})
+
+module.exports = router;
