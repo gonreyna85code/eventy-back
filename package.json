@@ -26,6 +26,7 @@
     "express-session": "^1.17.1",
     "express-session-jwt": "^0.2.2",
     "jsonwebtoken": "^8.5.1",
+    "mercadopago": "^1.5.9",
     "mongoose": "^5.9.12",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12",

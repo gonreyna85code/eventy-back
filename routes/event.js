@@ -2,6 +2,7 @@ const Router = require("express");
 const Event = require("../models/event");
 const User = require("../models/user");
 const mercadopago = require ('mercadopago');
+const passport = require("passport");
 
 mercadopago.configure({
   access_token: 'TEST-7103077711305655-113021-c4a62acbbc30cccc0cfbc219280a11c8-274464234'
