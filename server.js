@@ -1,21 +1,19 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
-const app = express();
 const user = require("./routes/user");
 const event = require("./routes/event");
 const cors = require("cors");
 const morgan = require("morgan");
 const MongoStore = require("connect-mongo");
-app.name = "API";
-
 const jwt = require("jsonwebtoken");
 const session = require("express-session-jwt");
+const app = express();
 
+app.name = "API";
 
 app.use(
   cors({
@@ -43,7 +41,6 @@ app.use(async (req, res, next) => {
     );
     return res.status(200).json({});
   }
-
   res.header(
     "Access-Control-Allow-Origin",
     "https://eventy-main-k9u23v0l7-gonreyna85code.vercel.app"
@@ -54,7 +51,6 @@ app.use(async (req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Cookie, Accept, Authorization, Set-Cookie"
   );
-//set.cookie("Access-Control-Allow-Origin", "https://eventy-main-6hcqxvt4w-gonreyna85code.vercel.app");
   next();
 });
 
@@ -70,10 +66,8 @@ mongoose.connect(
 );
 mongoose.set("useCreateIndex", true);
 
-
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(cookieParser());
 app.use(morgan("dev"));
 
 const store = MongoStore.create({
