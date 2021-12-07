@@ -4,7 +4,6 @@ const localStrategy = require("passport-local").Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
-
 module.exports = function (passport) {  
   passport.use(
     'login',
@@ -28,7 +27,7 @@ module.exports = function (passport) {
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+        jwtFromRequest: ExtractJWT.fromHeader('secret_token')
       },
       async (token, done) => {
         try {
