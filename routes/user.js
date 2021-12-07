@@ -11,7 +11,6 @@ const router = Router();
 router.get("/user", passport.authenticate('jwt', { session: false }), async (req, res) => {
   const near = await Event.find({ location: req.user.profile?.city?.cityName });
   const follows = await Event.find({ category: req.user?.subscriptions });
-  console.log(req.user)
   if (req.user) {
     User.findOne({ _id: req.user._id }, async (err, doc) => {
       if (err) throw err;
