@@ -6,11 +6,11 @@ const bcrypt = require("bcryptjs");
 
 const router = Router();
 
-app.get('/auth/google',
+router.get('/auth/google',
   passport.authenticate('google', { scope: 'https://www.google.com/m8/feeds' }));
 
 
-app.get('/auth/google/callback', 
+router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
