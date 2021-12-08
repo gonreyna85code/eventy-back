@@ -1,5 +1,6 @@
 const User = require("./models/user");
 const bcrypt = require("bcryptjs");
+const OAuthStrategy = require('passport-oauth').OAuthStrategy;
 const GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 const localStrategy = require("passport-local").Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
@@ -24,9 +25,24 @@ module.exports = function (passport) {
     })
   ); 
 
+  passport.use('provider', new OAuthStrategy({
+    requestTokenURL: 'https://www.provider.com/oauth/request_token',
+    accessTokenURL: 'https://www.provider.com/oauth/access_token',
+    userAuthorizationURL: 'https://www.provider.com/oauth/authorize',
+    consumerKey: '123-456-789',
+    consumerSecret: 'shhh-its-a-secret',
+    callbackURL: 'https://www.example.com/auth/provider/callback'
+  },
+  function(token, tokenSecret, profile, done) {
+    User.findOrCreate(... function(err, user) {
+      done(err, user);
+    });
+  }
+));
+
   passport.use(new GoogleStrategy({
-    consumerKey: GOOGLE_CONSUMER_KEY,
-    consumerSecret: GOOGLE_CONSUMER_SECRET,
+    consumerKey: '660766853123-8eta4gn364u3q4oqpqhc2ic023dem5u5.apps.googleusercontent.com',
+    consumerSecret: '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',
     callbackURL: "http://www.example.com/auth/google/callback"
   },
   function(token, tokenSecret, profile, done) {
