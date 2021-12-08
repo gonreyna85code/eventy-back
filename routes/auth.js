@@ -13,7 +13,7 @@ router.get(
 
 router.get("/auth/provider", passport.authenticate("provider"));
 
-app.get('/auth/provider/callback',
+router.get('/auth/provider/callback',
   passport.authenticate('provider', { successRedirect: '/',
                                       failureRedirect: '/login' }));
 
