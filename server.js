@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 const bodyParser = require("body-parser");
 const user = require("./routes/user");
 const auth = require("./routes/auth");
@@ -17,20 +18,6 @@ app.use(  cors({origin: "https://eventy-main.vercel.app", credentials: true}));
 
 app.set("trust proxy", 1);
 
-// app.use(async (req, res, next) => {
-//   if (req.method === "OPTIONS") {
-//     res.header("Access-Control-Allow-Origin", "https://eventy-main.vercel.app");
-//     res.header("Access-Control-Allow-Credentials", "true");
-//     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Accept, Authorization, Set-Cookie, Cookie");
-//     return res.status(200).json({});
-//   }
-//   res.header("Access-Control-Allow-Origin", "https://eventy-main.vercel.app");
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, application/x-www-form-urlencoded, Cookie, Accept, Authorization, Set-Cookie");
-//   next();
-// });
 
 mongoose.connect(
   process.env.MONGO,{useNewUrlParser: true,useUnifiedTopology: true},
