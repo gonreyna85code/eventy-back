@@ -26,12 +26,12 @@ module.exports = function (passport) {
   ); 
 
   passport.use('provider', new OAuthStrategy({
-    requestTokenURL: 'https://www.provider.com/oauth/request_token',
-    accessTokenURL: 'https://www.provider.com/oauth/access_token',
-    userAuthorizationURL: 'https://www.provider.com/oauth/authorize',
-    consumerKey: '123-456-789',
-    consumerSecret: 'shhh-its-a-secret',
-    callbackURL: 'https://www.example.com/auth/provider/callback'
+    requestTokenURL: "https://oauth2.googleapis.com/token",
+    accessTokenURL: "https://oauth2.googleapis.com/token",
+    userAuthorizationURL: "https://accounts.google.com/o/oauth2/auth",
+    consumerKey: "660766853123-8eta4gn364u3q4oqpqhc2ic023dem5u5.apps.googleusercontent.com",
+    consumerSecret: "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",
+    callbackURL: "https://eventy-main.vercel.app/auth/google/callback"
   },
   function(token, tokenSecret, profile, done) {
     User.findOrCreate(... function(err, user) {
@@ -43,7 +43,7 @@ module.exports = function (passport) {
   passport.use(new GoogleStrategy({
     consumerKey: '660766853123-8eta4gn364u3q4oqpqhc2ic023dem5u5.apps.googleusercontent.com',
     consumerSecret: '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',
-    callbackURL: "http://www.example.com/auth/google/callback"
+    callbackURL: "https://eventy-main.vercel.app/auth/google/callback"
   },
   function(token, tokenSecret, profile, done) {
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
