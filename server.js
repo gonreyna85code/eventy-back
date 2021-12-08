@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const express = require("express");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
-const GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 const bodyParser = require("body-parser");
 const user = require("./routes/user");
 const auth = require("./routes/auth");
