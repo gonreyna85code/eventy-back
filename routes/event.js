@@ -30,6 +30,7 @@ router.post(
           info: req.body.info,
           event_pay: req.body.event_pay,
           date: fecha,
+          expired: false,
           user: req.body.user,
           category: req.body.category,
           subcategory: req.body.subcategory,
