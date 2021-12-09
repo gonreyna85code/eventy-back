@@ -292,15 +292,9 @@ setInterval(function() {
         var year =  yesterday.getFullYear();
         var month =  yesterday.getMonth();
         var day =  yesterday.getDate();
-        var fecha = day + "-" + month + "-" + year;
-        console.log(fecha);
-  Event.find({ date: fecha }, (err, eventos) => {
-    if (err) {
-      console.log(err);
-    }
-    eventos.forEach((evento) => {
-      console.log(evento);
-    });
+        var fecha = day + "-" + month + "-" + year;        
+  Event.findOneAndUpdate({ date: fecha }, {
+    expired: true
   })
     
 }, 3000);
