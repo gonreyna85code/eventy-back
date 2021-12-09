@@ -23,7 +23,7 @@ router.post(
         var year = eventDate.getFullYear();
         var month = eventDate.getMonth();
         var day = eventDate.getDate();
-        var fecha = year + "-" + month + "-" + day;
+        var fecha = day + "-" + month + "-" + year;
         const newEvent = new Event({
           name: req.body.name,
           location: req.body.location,
