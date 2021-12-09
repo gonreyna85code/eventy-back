@@ -302,8 +302,7 @@ setInterval(function() {
     if (error) {
       console.log(error);
     }
-    console.log(evento);
   })
-}, 30000);
+}, 3000000);
 
 module.exports = router;
