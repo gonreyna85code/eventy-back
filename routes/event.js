@@ -294,10 +294,16 @@ setInterval(function() {
         var month =  yesterday.getMonth();
         var day =  yesterday.getDate();
         var fecha = day + "-" + month + "-" + year;        
-  Event.findOneAndUpdate({ date: fecha }, {
+  Event.findOneAndUpdate({ date: fecha, expired: false }, {
+
     expired: true
+  },
+  (error, evento) => {
+    if (error) {
+      console.log(error);
+    }
+    console.log(evento);
   })
-    
-}, 3000);
+}, 30000);
 
 module.exports = router;
