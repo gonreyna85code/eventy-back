@@ -19,9 +19,10 @@ router.post(
       if (err) throw err;
       if (doc) res.send("Event Already Exists");
       if (!doc) {
-        var year = req.body.date.getFullYear();
-        var month = req.body.date.getMonth();
-        var day = req.body.date.getDate();
+        const eventDate = new Date(req.body.date);
+        var year = eventDate.getFullYear();
+        var month = eventDate.getMonth();
+        var day = eventDate.getDate();
         var fecha = year + "-" + month + "-" + day;
         const newEvent = new Event({
           name: req.body.name,
