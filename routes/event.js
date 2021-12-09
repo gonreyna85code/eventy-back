@@ -19,10 +19,9 @@ router.post(
       if (err) throw err;
       if (doc) res.send("Event Already Exists");
       if (!doc) {
-        var eventDate = req.body.date;
-        var year = await eventDate.getFullYear();
-        var month = await eventDate.getMonth() + 1;
-        var day = await eventDate.getDate();
+        var year = req.body.date.getFullYear();
+        var month = req.body.date.getMonth();
+        var day = req.body.date.getDate();
         var fecha = year + "-" + month + "-" + day;
         const newEvent = new Event({
           name: req.body.name,
@@ -286,10 +285,15 @@ router.delete(
   }
 );
 
-setInterval(function () {
+setInterval(function() {
   let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-  var date = Event.find({ date: new Date() });
-  console.log(yesterday);
-}, 30000);
+
+        var year =  yesterday.getFullYear();
+        var month =  yesterday.getMonth() + 1;
+        var day =  yesterday.getDate();
+        var fecha = year + "-" + month + "-" + day;
+  
+  console.log(fecha);
+}, 3000);
 
 module.exports = router;
