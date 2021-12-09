@@ -292,9 +292,17 @@ setInterval(function() {
         var year =  yesterday.getFullYear();
         var month =  yesterday.getMonth() + 1;
         var day =  yesterday.getDate();
-        var fecha = year + "-" + month + "-" + day;
-  
-  console.log(fecha);
+        var fecha = day + "-" + month + "-" + year;
+        console.log(fecha);
+  Event.find({ date: fecha }, (err, eventos) => {
+    if (err) {
+      console.log(err);
+    }
+    eventos.forEach((evento) => {
+      console.log(evento);
+    });
+  })
+    
 }, 3000);
 
 module.exports = router;
