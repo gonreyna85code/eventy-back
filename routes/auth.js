@@ -14,7 +14,7 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
-    res.redirect("https://eventy-main.vercel.app");
+    res.redirect("/");
   }
 );
 router.post("/login", (req, res, next) => {
