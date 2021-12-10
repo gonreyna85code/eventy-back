@@ -51,7 +51,7 @@ module.exports = function (passport) {
           "https://gonzalo-eventy3.herokuapp.com/auth/google/callback",
       },
       function (accessToken, refreshToken, profile, done) {
-        return done(err, user);
+        return done(null, profile);
       }
     )
   );
