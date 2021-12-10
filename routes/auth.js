@@ -7,7 +7,6 @@ const bcrypt = require("bcryptjs");
 const router = Router();
 
 router.get('/auth/google',
-console.log('hola'),
   passport.authenticate('google', { scope: [ 'email', 'profile' ]
 }));
 router.get('/auth/google/callback', passport.authenticate( 'google', {
