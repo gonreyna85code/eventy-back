@@ -56,7 +56,7 @@ app.use(
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     cookie: {
-      domain: "https://eventy-main.vercel.app",
+      
       sameSite: 'none',
       secure: true,
       maxAge: 60 * 60 * 1000 * 24 * 365,
