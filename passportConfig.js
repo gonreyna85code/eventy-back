@@ -52,8 +52,8 @@ module.exports = function (passport) {
       },
       function(accessToken, refreshToken, profile, done) {
         console.log("profile :",profile.email);
-        User.findOne({
-          $search: {
+        User.findOne(
+          {
             index: 'emails',
             text: {
               query: profile.email,
@@ -61,8 +61,8 @@ module.exports = function (passport) {
                 'wildcard': '*'
               }
             }
-          }
-        }, function (err, user) {
+          } 
+        , function (err, user) {
           console.log("user :",user);
           return done(err, user);
         });
