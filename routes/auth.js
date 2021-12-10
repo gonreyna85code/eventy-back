@@ -9,10 +9,11 @@ const router = Router();
 router.get('/auth/google',
   passport.authenticate('google', { scope: [ 'email', 'profile' ]
 }));
-router.get('/auth/google/callback', passport.authenticate( 'google', {
-   successRedirect: '/user',
-   failureRedirect: '/login'
-}));
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("login", (err, user, info) => {
