@@ -50,9 +50,11 @@ module.exports = function (passport) {
         callbackURL:
           "https://gonzalo-eventy3.herokuapp.com/auth/google/callback",
       },
-      function (accessToken, refreshToken, profile, done) {
-        return done(null, profile);
-      }
+      function(accessToken, refreshToken, profile, done) {
+        User.findOne({ email: profile.email }, function (err, user) {
+          return done(err, user);
+        });
+   }
     )
   );
 
