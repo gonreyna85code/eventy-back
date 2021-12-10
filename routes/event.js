@@ -5,6 +5,12 @@ const mercadopago = require("mercadopago");
 const distance = require('google-distance-matrix');
 const passport = require("passport");
 
+const isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.sendStatus(401);
+}
+
 mercadopago.configure({
   access_token:
     "TEST-7103077711305655-113021-c4a62acbbc30cccc0cfbc219280a11c8-274464234",
@@ -14,7 +20,7 @@ const router = Router();
 
 router.post(
   "/event",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   function (req, res) {
     Event.findOne({ name: req.body.name }, async (err, doc) => {
       if (err) throw err;
@@ -48,7 +54,7 @@ router.post(
 
 router.get(
   "/event/:name",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   async (req, res) => {
     const { name } = req.params;
     var response = await Event.find({ name: name });
@@ -61,7 +67,7 @@ router.get(
 
 router.get(
   "/eventosCercanos",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   async (req, res) => {
     distance.key("AIzaSyCf8E0lXmJWdgTw6vgsHOcslcUZ4oidnE0");
     var origin = [`${req.query.lat},${req.query.lng}`];
@@ -105,7 +111,7 @@ router.get(
 
 router.get(
   "/eventsAll/:parametro",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   async (req, res) => {
     var parametro = req.params.parametro.toLowerCase();
     var nombre, lugar, info;
@@ -146,7 +152,7 @@ router.get(
 
 router.get(
   "/events/filter/categoria-:categoria?/ciudad-:ciudad?/pago-:pago?",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   async (req, res) => {
     var categoria = req.params.categoria.toLowerCase(); //acepta un string con el nombre parcial o total de una categoria;
     var ciudad = req.params.ciudad.toLowerCase(); //acepta un string con el nombre parcial o total de la ciudad;
@@ -212,7 +218,7 @@ router.get(
 
 router.get(
   "/socialEvents",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   async (req, res) => {
     var response = await Event.find({ category: "social" });
     response.length > 0
@@ -223,7 +229,7 @@ router.get(
 
 router.get(
   "/sportEvents",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   async (req, res) => {
     var response = await Event.find({ category: "sports" });
     response.length > 0
@@ -234,7 +240,7 @@ router.get(
 
 router.get(
   "/allEvents",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   async (req, res) => {
     var response = await Event.find();
     response.length > 0
@@ -255,7 +261,7 @@ router.get("/lp-events", async (req, res) => {
 
 router.post(
   "/create_preference",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   (req, res) => {
     const { title, price, quantity } = req.body;
 
@@ -292,7 +298,7 @@ router.post(
 
 router.put(
   "/editarEvento/:name",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   (req, res) => {
     const name = req.params;
     console.log(name);
@@ -323,7 +329,7 @@ router.put(
 
 router.delete(
   "/event",
-  passport.authenticate("jwt", { session: false }),
+  isAuthenticated,
   (req, res) => {
     const { name } = req.body;
     Event.deleteOne({ name: name })

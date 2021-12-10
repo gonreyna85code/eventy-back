@@ -31,7 +31,7 @@ router.get("/user", isAuthenticated, async (req, res) => {
   }
 });
 
-router.put("/user_update", passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.put("/user_update", isAuthenticated, (req, res, next) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not Found");
@@ -45,7 +45,7 @@ router.put("/user_update", passport.authenticate('jwt', { session: false }), (re
   });
 });
 
-router.post("/subscriptions", passport.authenticate('jwt', { session: false }), (req,res,next) => {
+router.post("/subscriptions", isAuthenticated, (req,res,next) => {
   User.findOne({username:req.body.username}, async (err,doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not found");
@@ -59,7 +59,7 @@ router.post("/subscriptions", passport.authenticate('jwt', { session: false }), 
   });
 });
 
-router.delete("/subscriptions", passport.authenticate('jwt', { session: false }), (req,res,next) =>{
+router.delete("/subscriptions", isAuthenticated, (req,res,next) =>{
   User.findOne({username:req.body.username}, async (err,doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not found");
@@ -73,7 +73,7 @@ router.delete("/subscriptions", passport.authenticate('jwt', { session: false })
   });
 });
 
-router.delete("/subscriptions/all", passport.authenticate('jwt', { session: false }), (req,res,next) =>{
+router.delete("/subscriptions/all", isAuthenticated, (req,res,next) =>{
   User.findOne({username:req.body.username}, async (err,doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not found");
@@ -87,7 +87,7 @@ router.delete("/subscriptions/all", passport.authenticate('jwt', { session: fals
   });
 });
 
-router.get("/other-user/:id", passport.authenticate('jwt', { session: false }), (req,res,next)=>{
+router.get("/other-user/:id", isAuthenticated, (req,res,next)=>{
   User.findOne({_id:req.params.id}, async (err,doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not found");
@@ -98,7 +98,7 @@ router.get("/other-user/:id", passport.authenticate('jwt', { session: false }), 
   });
 });
 
-router.post("/follows", passport.authenticate('jwt', { session: false }), (req,res,next) => {
+router.post("/follows", isAuthenticated, (req,res,next) => {
   User.findOne({username:req.body.username}, async (err,doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not found");
@@ -112,7 +112,7 @@ router.post("/follows", passport.authenticate('jwt', { session: false }), (req,r
   });
 });
 
-router.delete("/follows", passport.authenticate('jwt', { session: false }), (req,res,next) =>{
+router.delete("/follows", isAuthenticated, (req,res,next) =>{
   User.findOne({username:req.body.username}, async (err,doc) => {
     if (err) throw err;
     if (!doc) res.send("User Not found");
