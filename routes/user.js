@@ -12,7 +12,7 @@ const isAuthenticated = function (req, res, next) {
   res.sendStatus(401);
 }
 
-router.get("/user", passport.authenticate('jwt', { session: true }), async (req, res) => {
+router.get("/user", isAuthenticated, async (req, res) => {
   const near = await Event.find({ location: req.user.profile?.city?.cityName });
   const follows = await Event.find({ _id: req.user.follows });
   if (req.user) {
