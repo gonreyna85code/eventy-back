@@ -57,10 +57,12 @@ module.exports = function (passport) {
   );
 
   passport.serializeUser((user, done) => {
+    console.log('serUser', user)
     done(null, user);
   });
 
   passport.deserializeUser((user, done) => {
+    console.log('desUser', user)
     done(null, user);
   });
 };
