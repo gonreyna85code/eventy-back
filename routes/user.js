@@ -6,9 +6,13 @@ const Event = require("../models/event");
 const router = Router();
 
 
+const isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.sendStatus(401);
+}
 
-
-router.get("/user", passport.authenticate('jwt', { session: true }), async (req, res) => {
+router.get("/user", isAuthenticated, async (req, res) => {
   const near = await Event.find({ location: req.user.profile?.city?.cityName });
   const follows = await Event.find({ _id: req.user.follows });
   if (req.user) {
