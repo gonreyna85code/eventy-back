@@ -51,13 +51,23 @@ module.exports = function (passport) {
         callbackURL:
           "https://gonzalo-eventy3.herokuapp.com/auth/google/callback",
       },
-      function (accessToken, refreshToken, profile, done) {
-        console.log("profile :", profile);
-        User.findOne({ username: "gonreyna85" }, function (err, user) {
-          console.log("user :", user);
+      function(accessToken, refreshToken, profile, done) {
+        console.log("profile :",profile);
+        User.findOne({ username: 'gonreyna85'}, function (err, user) {
+          console.log("user :",user);
           return done(err, user);
         });
-      }
+   }
     )
   );
+
+  passport.serializeUser((user, done) => {
+    console.log("serUser", user);
+    done(null, user);
+  });
+
+  passport.deserializeUser((user, done) => {
+    console.log("desUser", user);
+    done(null, user);
+  });
 };
