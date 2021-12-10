@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 var session = require("express-session");
+const cookieParser = require("cookie-parser");
 const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
@@ -27,6 +28,7 @@ mongoose.set("useCreateIndex", true);
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
+app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use(
