@@ -12,10 +12,7 @@ router.get('/auth/google',
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    const body = { _id: req.user._id, email: req.user.email };
-        const token = jwt.sign({ user: body }, "TOP_SECRET");
-        console.log(token);
-        return res.json({ token });
+    res.json(req.session.passport);
   });
 
 router.post("/login", (req, res, next) => {

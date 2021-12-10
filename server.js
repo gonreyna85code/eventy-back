@@ -1,6 +1,8 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
+var session = require("express-session");
+const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
@@ -27,13 +29,30 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(morgan("dev"));
 
+app.use(
+  session({
+    secret: 'secretcode',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/test-app' }),
+    cookie: {
+      secure: false,
+      maxAge: 60 * 60 * 1000 * 24 * 365,
+    },
+  })
+);
+
 require("./passportConfig")(passport);
 app.use(passport.initialize());
-
+app.use(passport.session())
 
 app.use("/", auth);
 app.use("/", user);
 app.use("/", event);
+
+app.get("/", (req, res) => {
+  res.json(req.session.passport);
+});
 
 
 
