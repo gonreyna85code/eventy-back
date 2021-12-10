@@ -1,6 +1,5 @@
 const Router = require("express");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
@@ -24,10 +23,7 @@ router.post("/login", (req, res, next) => {
     else {
       req.logIn(user, { session: false }, (err) => {
         if (err) throw err;
-        const body = { _id: user._id, email: user.email };
-        const token = jwt.sign({ user: body }, "TOP_SECRET");
-        console.log(token);
-        return res.json({ token }); //.send("Successfully Authenticated");
+        return res.send("Successfully Authenticated");
       });
     }
   })(req, res, next);
