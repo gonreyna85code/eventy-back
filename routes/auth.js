@@ -5,6 +5,11 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 const router = Router();
+checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) { return next() }
+  console.log('NOT AUTENTICATED !!!')
+  res.redirect("/login")
+}
 
 router.get(
   "/auth/google",
@@ -17,7 +22,7 @@ router.get(
     res.redirect("https://eventy-main.vercel.app");
   }
 );
-router.post("/login", (req, res, next) => {
+router.post("/login",checkAuthenticated, (req, res, next) => {
   passport.authenticate("login", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
