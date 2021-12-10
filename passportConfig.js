@@ -1,13 +1,11 @@
 const User = require("./models/user");
 const bcrypt = require("bcryptjs");
 const localStrategy = require("passport-local").Strategy;
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 
 module.exports = function (passport) {
-
-  
   passport.use(
     "login",
     new localStrategy((username, password, done) => {
@@ -46,25 +44,25 @@ module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: '660766853123-10tfek3hfs64f0t7tpvqmg0l0olhg17v.apps.googleusercontent.com',
-        clientSecret: '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',
-        callbackURL: "https://gonzalo-eventy3.herokuapp.com/auth/google/callback",
+        clientID:
+          "660766853123-10tfek3hfs64f0t7tpvqmg0l0olhg17v.apps.googleusercontent.com",
+        clientSecret: "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",
+        callbackURL:
+          "https://gonzalo-eventy3.herokuapp.com/auth/google/callback",
       },
-      function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-          return done(err, user);
-        });
-   }
+      function (accessToken, refreshToken, profile, done) {
+        return done(err, user);
+      }
     )
   );
 
   passport.serializeUser((user, done) => {
-    console.log('serUser', user)
+    console.log("serUser", user);
     done(null, user);
   });
 
   passport.deserializeUser((user, done) => {
-    console.log('desUser', user)
+    console.log("desUser", user);
     done(null, user);
   });
 };
