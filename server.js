@@ -21,7 +21,7 @@ app.use(cors({ origin: "https://eventy-main.vercel.app", credentials: true }));
 app.set("trust proxy", 1);
 
 app.get("/", (req, res, next) => {
-  headers["Access-Control-Allow-Origin"] = "*";
+  headers["Access-Control-Allow-Origin"] = "https://eventy-main.vercel.app";
   headers["Access-Control-Allow-Headers"] =
     "Content-Type, Content-Length, Authorization, Accept, X-Requested-With";
   headers["Access-Contrl-Allow-Methods"] = "PUT, POST, GET, DELETE, OPTIONS";
