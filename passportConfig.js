@@ -10,7 +10,6 @@ module.exports = function (passport) {
     "login",
     new localStrategy((username, password, done) => {
       User.findOne({ username: username }, (err, user) => {
-        console.log("local strategy", user);
         if (err) throw err;
         if (!user) return done(null, false);
         bcrypt.compare(password, user.password, (err, result) => {
@@ -24,23 +23,6 @@ module.exports = function (passport) {
       });
     })
   );
-
-  // passport.use(
-  //   new JWTstrategy(
-  //     {
-  //       secretOrKey: "TOP_SECRET",
-  //       jwtFromRequest: ExtractJWT.fromHeader("secret_token"),
-  //     },
-  //     async (token, done) => {
-  //       try {
-  //         console.log(token);
-  //         return done(null, token.user);
-  //       } catch (error) {
-  //         done(error);
-  //       }
-  //     }
-  //   )
-  // );
 
   passport.use(
     new GoogleStrategy(
