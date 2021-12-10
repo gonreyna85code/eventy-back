@@ -50,9 +50,11 @@ module.exports = function (passport) {
         clientSecret: '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',
         callbackURL: "https://gonzalo-eventy3.herokuapp.com/auth/google/callback",
       },
-      function (token, tokenSecret, profile, done) {
-        return done(null, profile);
-      }
+      function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+          return done(err, user);
+        });
+   }
     )
   );
 
