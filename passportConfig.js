@@ -1,13 +1,16 @@
 const User = require("./models/user");
 const bcrypt = require("bcryptjs");
 const localStrategy = require("passport-local").Strategy;
-const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
+const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const JWTstrategy = require("passport-jwt").Strategy;
+const ExtractJWT = require("passport-jwt").ExtractJwt;
 
-module.exports = function (passport) {  
+module.exports = function (passport) {
+
+  
   passport.use(
-    'login',
-    new localStrategy((username, password, done) => {      
+    "login",
+    new localStrategy((username, password, done) => {
       User.findOne({ username: username }, (err, user) => {
         if (err) throw err;
         if (!user) return done(null, false);
@@ -21,13 +24,13 @@ module.exports = function (passport) {
         });
       });
     })
-  ); 
-    
-  passport.use(         
+  );
+
+  passport.use(
     new JWTstrategy(
       {
-        secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJWT.fromHeader('secret_token')
+        secretOrKey: "TOP_SECRET",
+        jwtFromRequest: ExtractJWT.fromHeader("secret_token"),
       },
       async (token, done) => {
         try {
@@ -38,6 +41,27 @@ module.exports = function (passport) {
         }
       }
     )
-  );  
-};
+  );
 
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: '660766853123-10tfek3hfs64f0t7tpvqmg0l0olhg17v.apps.googleusercontent.com',
+        clientSecret: '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',
+        callbackURL: "http://localhost:3000/auth/google/callback",
+        passReqToCallback   : true
+      },
+      function (token, tokenSecret, profile, done) {
+        return done(null, profile);
+      }
+    )
+  );
+
+  passport.serializeUser((user, done) => {
+    done(null, user);
+  });
+
+  passport.deserializeUser((user, done) => {
+    done(null, user);
+  });
+};

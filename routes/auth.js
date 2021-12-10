@@ -6,6 +6,15 @@ const bcrypt = require("bcryptjs");
 
 const router = Router();
 
+router.get('/auth/google',
+console.log('hola'),
+  passport.authenticate('google', { scope: [ 'email', 'profile' ]
+}));
+router.get('/auth/google/callback', passport.authenticate( 'google', {
+   successRedirect: '/',
+   failureRedirect: '/login'
+}));
+
 router.post("/login", (req, res, next) => {
   passport.authenticate("login", (err, user, info) => {
     if (err) throw err;

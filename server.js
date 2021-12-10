@@ -35,6 +35,8 @@ app.use("/", auth);
 app.use("/", user);
 app.use("/", event);
 
+
+
 app.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || err;
