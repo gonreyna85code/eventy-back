@@ -52,6 +52,7 @@ app.use(
     secret: "secretcode",
     resave: false,
     path: "/",
+    proxy: true,
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     cookie: {
