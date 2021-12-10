@@ -8,7 +8,7 @@ const router = Router();
 
 
 
-router.get("/user", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/user", passport.authenticate('google', { session: false }), async (req, res) => {
   const near = await Event.find({ location: req.user.profile?.city?.cityName });
   const follows = await Event.find({ _id: req.user.follows });
   if (req.user) {
