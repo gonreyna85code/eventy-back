@@ -34,7 +34,7 @@ app.use(
     secret: 'secretcode',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/test-app' }),
+    store: MongoStore.create({ mongoUrl: process.env.MONGO }),
     cookie: {
       secure: false,
       maxAge: 60 * 60 * 1000 * 24 * 365,
