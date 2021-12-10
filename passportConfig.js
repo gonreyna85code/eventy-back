@@ -51,19 +51,9 @@ module.exports = function (passport) {
           "https://gonzalo-eventy3.herokuapp.com/auth/google/callback",
       },
       function(accessToken, refreshToken, profile, done) {
-        console.log("profile :",profile.email);
-        User.findOne(
-          {
-            index: 'emails',
-            text: {
-              query: profile.email,
-              path: {
-                'wildcard': '*'
-              }
-            }
-          } 
-        , function (err, user) {
-          console.log("user :",user);
+        console.log("profile :",profile);
+        User.findOne({ username: gonreyna85}, function (err, user) {
+          console.log("user :",profile);
           return done(err, user);
         });
    }
