@@ -2,6 +2,7 @@ const Router = require("express");
 const Event = require("../models/event");
 const User = require("../models/user");
 const mercadopago = require("mercadopago");
+const distance = require('google-distance-matrix');
 const passport = require("passport");
 
 mercadopago.configure({
