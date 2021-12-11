@@ -35,7 +35,7 @@ module.exports = function (passport) {
       },
       function(accessToken, refreshToken, profile, done) {
         console.log("profile :",profile);
-        User.findOrCreate({ email: profile.email}, function (err, user) {
+        User.findOne({ email: profile.email}, function (err, user) {
           console.log("user :",user);
           return done(err, user);
         });
