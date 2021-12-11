@@ -55,7 +55,7 @@ router.get("/logout", function (req, res) {
   res.send("Usuario no logueado");
 });
 
-async function main() {
+async function main(mail) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
   let testAccount = await nodemailer.createTestAccount();
@@ -74,7 +74,7 @@ async function main() {
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "gonreyna85@gmail.com", // list of receivers
+    to: mail, // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
     html: "<b>Hello world?</b>", // html body
