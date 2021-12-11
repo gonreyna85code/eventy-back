@@ -333,8 +333,8 @@ router.delete(
   (req, res) => {
     const { name } = req.body;
     Event.deleteOne({ name: name })
-      .then(res.send("el evento " + name + " ha sido eliminado"))
-      .catch(res.send("error"));
+      .then(res.send("el evento ha sido eliminado"))
+      //.catch(res.send("error"));
   }
 );
 
