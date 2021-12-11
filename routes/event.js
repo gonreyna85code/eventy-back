@@ -90,7 +90,7 @@ router.get(
         }
         let distancias = distances.rows[0].elements;
         let filtrado = distancias.map((dist) => {
-          if (dist.distance.value <= 5000) {
+          if (dist.distance.value <= 50000) {
             return distancias.indexOf(dist);
           }
         });
