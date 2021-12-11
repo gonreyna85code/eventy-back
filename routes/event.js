@@ -22,6 +22,7 @@ router.post(
   "/event",
   isAuthenticated,
   function (req, res) {
+    try {
     Event.findOne({ name: req.body.name }, async (err, doc) => {
       if (err) throw err;
       if (doc) res.send("Event Already Exists");
@@ -49,6 +50,11 @@ router.post(
         await newEvent.save();
       }
     });
+    res.send("Event Created");
+    } catch (err) {
+      res.send(err);
+    }
+    
   }
 );
 
@@ -334,7 +340,9 @@ router.delete(
     const { name } = req.body;
     Event.deleteOne({ name: name })
       .then(res.send("el evento ha sido eliminado"))
+
       //.catch(res.send("error"));
+
   }
 );
 
