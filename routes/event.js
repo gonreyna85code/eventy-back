@@ -77,6 +77,7 @@ router.get(
   async (req, res) => {
     distance.key("AIzaSyCf8E0lXmJWdgTw6vgsHOcslcUZ4oidnE0");
     var origin = [`${req.query.lat},${req.query.lng}`];
+    console.log(origin);
     var eventos = await Event.find();
     var destinosCoords = eventos.map((event) => {
       return `${event.location.cityCords.lat}, ${event.location.cityCords.lng}`;
