@@ -11,7 +11,6 @@ const user = require("./routes/user");
 const auth = require("./routes/auth");
 const event = require("./routes/event");
 const cors = require("cors");
-const morgan = require("morgan");
 const app = express();
 
 app.name = "API";
@@ -45,7 +44,6 @@ mongoose.set("useCreateIndex", true);
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser());
-app.use(morgan("dev"));
 
 app.use(
   session({

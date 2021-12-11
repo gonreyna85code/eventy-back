@@ -2,8 +2,6 @@ const User = require("./models/user");
 const bcrypt = require("bcryptjs");
 const localStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
-//const JWTstrategy = require("passport-jwt").Strategy;
-//const ExtractJWT = require("passport-jwt").ExtractJwt;
 
 module.exports = function (passport) {
   passport.use(
@@ -59,12 +57,10 @@ module.exports = function (passport) {
   );
 
   passport.serializeUser((user, done) => {
-    console.log("serUser", user);
     done(null, user);
   });
 
   passport.deserializeUser((user, done) => {
-    console.log("desUser", user);
     done(null, user);
   });
 };
