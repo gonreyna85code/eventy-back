@@ -350,7 +350,6 @@ router.delete(
 
 setInterval(function () {
   let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-
   var year = yesterday.getFullYear();
   var month = yesterday.getMonth();
   var day = yesterday.getDate();
@@ -360,7 +359,7 @@ setInterval(function () {
     {
       expired: true,
     },
-    (error, evento) => {
+    (error, _evento) => {
       if (error) {
         console.log(error);
       }

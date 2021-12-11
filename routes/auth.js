@@ -55,35 +55,48 @@ router.get("/logout", function (req, res) {
   res.send("Usuario no logueado");
 });
 
-async function main(mail) {
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-  let testAccount = await nodemailer.createTestAccount();
+router.post("/forgot", async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (!user) res.send("No User Exists");
+  else {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "eventy.mailer.service@gmail.com" /* Your Email */,
+        pass: "eventymailer" /* Your Password */,
+      },
+    });
+    const mailOptions = {
+      from: "eventy.mailer.service@gmail.com",
+      to: user.email,
+      subject: "Password Reset",
+      text:
+        "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
+        "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+        "https://eventy-main.vercel.app/reset/" +
+        user._id +
+        "\n\n" +
+        "If you did not request this, please ignore this email and your password will remain unchanged.\n",
+    };
+    transporter.sendMail(mailOptions, function (err) {
+      if (err) throw err;
+      res.send("Email Sent");
+    });
+  }
+});
 
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: testAccount.user, // generated ethereal user
-      pass: testAccount.pass, // generated ethereal password
-    },
-  });
-
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: mail, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-}
-
-main().catch(console.error);
+router.post("/reset/:id", async (req, res) => {
+  const user = await User.findOne({ _id: req.params.id });
+  if (!user) res.send("No User Exists");
+  else {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { password: hashedPassword },
+      { new: true }
+    );
+    res.send("Password Changed");
+  }
+});
 
 module.exports = router;
