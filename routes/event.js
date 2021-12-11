@@ -54,7 +54,7 @@ router.post(
     } catch (err) {
       res.send(err);
     }
-    
+
   }
 );
 
@@ -107,6 +107,7 @@ router.get(
             return event;
           }
         });
+        console.log(eventsSend);
         res.send(eventsSend);
       });
     } else {
