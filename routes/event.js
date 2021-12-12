@@ -3,7 +3,6 @@ const Event = require("../models/event");
 const User = require("../models/user");
 const mercadopago = require("mercadopago");
 const distance = require('google-distance-matrix');
-const passport = require("passport");
 
 const isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
