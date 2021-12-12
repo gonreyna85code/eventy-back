@@ -90,7 +90,8 @@ router.post("/reset/:id", async (req, res) => {
   if (!user) res.send("No User Exists");
   else {
     console.log(user);
-    console.log(req.params.id);    
+    console.log(req.params.id);
+        
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     await User.findOneAndUpdate(
       { _id: req.params.id },
