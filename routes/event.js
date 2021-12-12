@@ -266,42 +266,37 @@ router.get("/lp-events", async (req, res) => {
     : res.status(404).send("No hay Eventos");
 });
 
-router.post(
-  "/create_preference",
-  isAuthenticated,
-  (req, res) => {
-    const { title, price, quantity } = req.body;
+router.post("/create_preference", (req, res) => {
 
-    let preference = {
-      items: [
-        {
-          title: title,
-          unit_price: Number(price),
-          quantity: Number(quantity),
-        },
-      ],
-      //back_urls: {
-      //	"success": "http://localhost:8080/feedback",
-      //	"failure": "http://localhost:8080/feedback",
-      //	"pending": "http://localhost:8080/feedback"
-      //},
-      //auto_return: "approved",
-    };
-    console.log(preference);
+  const {title, price, quantity} = req.body;
 
-    mercadopago.preferences
-      .create(preference)
-      .then(function (response) {
-        global.id = response.body.id;
-        res.json({
-          id: response.body.id,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-);
+	let preference = {
+		items: [
+			{
+				title: title,
+				unit_price: Number(price),
+				quantity: Number(quantity),
+			}
+		],
+		back_urls: {
+			"success": "https://eventy-main.vercel.app/compraExitosa/" + title,
+			"failure": "https://eventy-main.vercel.app/",
+		//	"pending": "http://localhost:8080/feedback"
+		},
+		//auto_return: "approved",
+	};
+  console.log(preference)
+
+	mercadopago.preferences.create(preference)
+		.then(function (response) {
+      global.id = response.body.id
+			res.json({
+				id: response.body.id
+			});
+		}).catch(function (error) {
+			console.log(error);
+		});
+});
 
 router.put(
   "/editarEvento/:name",
