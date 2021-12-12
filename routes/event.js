@@ -305,7 +305,7 @@ router.put(
     const name = req.params;
     console.log(name);
 
-    Event.findOneAndUpdate(
+    Event.updateOne(
       { name: name.name },
       {
         name: req.body.name,
@@ -348,7 +348,7 @@ setInterval(function () {
   var month = yesterday.getMonth();
   var day = yesterday.getDate();
   var fecha = day + "-" + month + "-" + year;
-  Event.findOneAndUpdate(
+  Event.updateMany(
     { date: fecha, expired: false },
     {
       expired: true,
