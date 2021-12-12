@@ -91,6 +91,7 @@ router.post("/reset/:id", async (req, res) => {
   else {
     console.log(user);
     console.log(req.params.id);
+    
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     await User.findOneAndUpdate(
       { _id: req.params.id },
