@@ -24,18 +24,9 @@ router.get("/user", isAuthenticated, async (req, res) => {
         doc.follows = follows;
         doc.save();
         res.send(doc);
+        console.log(doc);
       }
     }).populate('follows').populate('events');
-    console.log(User.findOne({ _id: req.user._id }, async (err, doc) => {
-      if (err) throw err;
-      if (!doc) res.send("User Not Found");
-      if (doc) {
-        doc.near = near;
-        doc.follows = follows;
-        doc.save();
-        res.send(doc);
-      }
-    }).populate('follows').populate('events'))
   } else {
     res.send("Usuario no logueado");
   }
