@@ -7,7 +7,7 @@ const distance = require('google-distance-matrix');
 const isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
     return next();
-  res.sendStatus(401);
+  res.send('No Disponible');
 }
 
 mercadopago.configure({
